@@ -39,7 +39,7 @@ p:last-child { margin-bottom: 0; }
 .tm-text-gray { color: #787676; }
 
 .tm-text-highlight {
-    color: #2bca2b;
+    color: #00a6ffd9;
     font-weight: 600;
 }
 
@@ -387,6 +387,7 @@ label { font-weight: 700; }
 
 .tm-recommended-description-box {
     padding: 30px;
+    padding-bottom: 15px;
     width: 500px;
 }
 

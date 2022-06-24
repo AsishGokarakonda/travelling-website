@@ -40,12 +40,18 @@ router.post("/addpackage", body('PackageName').isLength({ min: 3 }), async (req,
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const { PackageName, PackageDescription, PackageCost, PackageDeparture, PackageDays,PackageImg,TopPackage } = req.body
+        const { PackageName, PackageDescription, PackageCost,PackageTravel, PackageDeparture,PackageDestination,PackageFlights,PackageHotels,PackageTransfers,PackageActivites, PackageDays,PackageImg,TopPackage } = req.body
         let package = await packagesch.create({
             PackageName: PackageName,
             PackageDescription: PackageDescription,
             PackageCost: PackageCost,
+            PackageTravel:PackageTravel,
             PackageDeparture: PackageDeparture,
+            PackageDestination: PackageDestination,
+            PackageFlights: PackageFlights,
+            PackageHotels: PackageHotels,
+            PackageTransfers: PackageTransfers,
+            PackageActivites: PackageActivites,
             PackageDays: PackageDays,
             PackageImg: PackageImg,
             TopPackage: TopPackage
