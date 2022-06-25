@@ -26,7 +26,7 @@ const PackageSchema = new Schema({
         type:String,
         required: true,
     },
-    PackageFlights:{
+    TravelsNumber:{
         type:Number,
         required: true,
     },
@@ -50,8 +50,8 @@ const PackageSchema = new Schema({
         type:String,
         required:true
     },
-    TopPackage:{
-        type:Boolean,
+    PackageType:{
+        type:String,
         required: true,
     },
     });

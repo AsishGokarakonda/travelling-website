@@ -31,7 +31,7 @@ const Mainpage = (props) => {
     })
 
 
-    Axios.get(`http://localhost:5000/api/products/gettoppackages`,{
+    Axios.get(`http://localhost:5000/api/products/toppackages`,{
       headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'

@@ -36,7 +36,7 @@ const Navbar = (props) => {
                   <Link className={`nav-link ${loc.pathname === "/" ? "active" : ""}`} style={{ fontSize: "15px" }} to="/">Home <span className="sr-only">(current)</span></Link>
                 </li>
                 <li className="nav-item">
-                  <Link className={`nav-link ${loc.pathname === "/topdestinations" ? "active" : ""}`} style={{ fontSize: "15px" }} to="/topdestinations">Top Destinations</Link>
+                  <Link className={`nav-link ${loc.pathname === "/alltypes" ? "active" : ""}`} style={{ fontSize: "15px" }} to="/alltypes">Types</Link>
                 </li>
                 <li className="nav-item">
                   <Link className={`nav-link ${loc.pathname === "/allpackages" ? "active" : ""}`} style={{ fontSize: "15px" }} to="/allpackages">Packages</Link>

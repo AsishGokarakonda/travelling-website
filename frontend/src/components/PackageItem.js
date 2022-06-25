@@ -1,21 +1,41 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { MdOutlineFlight } from 'react-icons/md'
-import { FaHotel } from 'react-icons/fa'
+import { FaHotel,FaTrain } from 'react-icons/fa'
 import { FaCameraRetro } from 'react-icons/fa'
 import { AiFillCar } from 'react-icons/ai'
 const PackageItem = (props) => {
     const { packagedetails, image } = props
-    // console.log(packagedetails)
+
     let srcimage = ''
     if (image === "none") {
         srcimage = process.env.PUBLIC_URL + '/img/noImage.jpeg'
-        // console.log(srcimage);
     } else {
         srcimage = process.env.PUBLIC_URL + '/img/' + image
-        // console.log(srcimage);
     }
 
+    var decideTravelIcon =<div style={{textAlign:"center"}}><MdOutlineFlight size={"19"} /></div>
+    var travel = "flight"
+    switch (packagedetails.PackageTravel) {
+        case "flight":
+            decideTravelIcon =<div style={{textAlign:"center"}}><MdOutlineFlight size={"19"} /></div>
+            if (packagedetails.TravelsNumber>1){
+                travel = "flights"
+            }else{
+                travel ="flight"
+            }
+            break;
+        case "train":
+            decideTravelIcon =<div style={{textAlign:"center"}}><FaTrain size={"19"} /></div>
+            if (packagedetails.TravelsNumber>1){
+                travel = "trains"
+            }else{
+                travel ="train"
+            }
+            break;
+        default:
+            break;
+    }
     return (
         <div className="tm-recommended-place">
             <img src={srcimage} alt={process.env.PUBLIC_URL + '/img/noImage.jpeg'} className="img-fluid tm-recommended-img" />
@@ -25,29 +45,27 @@ const PackageItem = (props) => {
                 <p className="tm-text-gray">{packagedetails.PackageDescription}</p>
                 <div class="d-flex justify-content-around">
                     <div>
-                        <div style={{textAlign:"center"}}>
-                            <MdOutlineFlight size={"19"} />
-                        </div>
-                        <p style={{ textAlign: "center" }}>{packagedetails.PackageFlights} Flights</p>
+                        {decideTravelIcon}
+                        <p style={{ textAlign: "center" }}>{packagedetails.TravelsNumber} {travel}</p>
                     </div>
 
                     <div>
                         <div style={{textAlign:"center"}}>
                             <FaHotel size={"19"} />
                         </div>
-                        <p style={{ textAlign: "center" }}>{packagedetails.PackageHotels} Hotel</p>
+                        <p style={{ textAlign: "center" }}>{packagedetails.PackageHotels}{packagedetails.PackageHotels>1? " Hotels":" Hotel"}</p>
                     </div>
 
                     <div>
                         <div style={{textAlign:"center"}}>
                             <FaCameraRetro size={"19"} />
                         </div>
-                        <p style={{ textAlign: "center" }}>{packagedetails.PackageActivites} Activites</p>
+                        <p style={{ textAlign: "center" }}>{packagedetails.PackageActivites} {packagedetails.PackageActivites>1? " Activites":" Activity"}</p>
                     </div>
 
                     <div>
                         <div style={{textAlign:"center"}}>
-                            <AiFillCar size={"19"} />
+                            <AiFillCar  size={"19"} />
                         </div>
                         <p style={{ textAlign: "center" }}>{packagedetails.PackageTransfers} Transfers</p>
                     </div>

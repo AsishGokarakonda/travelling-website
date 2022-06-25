@@ -3,8 +3,8 @@
 Journey Template 
 http://www.templatemo.com/tm-511-journey
 
-Primary color (light blue)  : #69c6ba
-Highlight color (pink)		: #2bca2b
+Primary color (light blue)  : #007bff
+Highlight color (pink)		: #0069d9
 --------------------------------------
 
 */
@@ -43,17 +43,17 @@ p:last-child { margin-bottom: 0; }
     font-weight: 600;
 }
 
-.tm-bg-primary { background: #69c6ba; }
-.tm-bg-highlight { background: #2bca2b; }
+.tm-bg-primary { background: #007bff; }
+.tm-bg-highlight { background: #0069d9; }
 
 .btn-primary {
-    background: #69c6ba;
+    background: #007bff;
     border: none;
     border-radius: 0;
     outline: none;
 }
 
-.btn-primary:hover { background: #2bca2b; }
+.btn-primary:hover { background: #0069d9; }
 .tm-top-bar .navbar-expand-lg .navbar-nav .nav-link { padding: 50px 35px; }
 
 .tm-top-bar {
@@ -97,7 +97,7 @@ p:last-child { margin-bottom: 0; }
     padding-bottom: 0;
 }
 
-.nav-link.active, .nav-link:hover {	color: #69c6ba;	}
+.nav-link.active, .nav-link:hover {	color: #007bff;	}
 
 .navbar-toggler-icon {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(104, 199, 187)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
@@ -144,7 +144,7 @@ p:last-child { margin-bottom: 0; }
 .tm-banner-row-header { text-align: center; }
 .tm-down-arrow-link { 
     color: white;
-    background-color: #69c6ba;
+    background-color: #007bff;
     border-radius: 50%;
     padding: 10px 15px;
     margin-top: 0px;
@@ -154,7 +154,7 @@ p:last-child { margin-bottom: 0; }
 .tm-down-arrow-link:hover,
 .tm-down-arrow-link:focus {
     color: white;
-    background-color: #2bca2b;
+    background-color: #0069d9;
 }
 
 /* Search form */
@@ -189,20 +189,20 @@ label { font-weight: 700; }
 }
 
 .tm-btn-white { background: white; }
-.tm-btn-white-primary { color: #69c6ba; }
-.tm-btn-white-highlight { color: #2bca2b; }
+.tm-btn-white-primary { color: #007bff; }
+.tm-btn-white-highlight { color: #0069d9; }
 
 .tm-btn-white-primary:hover,
 .tm-btn-white-primary:focus,
 .tm-btn-white-primary:active {
-    background: #2bca2b;
+    background: #0069d9;
     color: white;
 }
 
 .tm-btn-white-highlight:hover,
 .tm-btn-white-highlight:focus,
 .tm-btn-white-highlight:active {
-    background: #69c6ba;
+    background: #007bff;
     color: white;
 }
 
@@ -211,7 +211,7 @@ label { font-weight: 700; }
 .tm-btn-search:hover,
 .tm-btn-search:active,
 .tm-btn-search:focus {
-    background: #2bca2b;
+    background: #0069d9;
 }
 
 .tm-bg-gray { background-color: #efefef; }
@@ -275,12 +275,12 @@ label { font-weight: 700; }
 
 .slick-prev:hover,
 .slick-next:hover {
-    background: #69c6ba;
+    background: #007bff;
 }
 
 .tm-slideshow-highlight .slick-prev:hover, 
 .tm-slideshow-highlight .slick-next:hover {
-    background: #2bca2b;
+    background: #0069d9;
 }
 
 .slick-prev {
@@ -315,7 +315,7 @@ label { font-weight: 700; }
     -webkit-justify-content: space-evenly;
     -ms-flex-pack: space-evenly;
     justify-content: space-evenly;
-    background: #69c6ba;
+    background: #007bff;
 }
 
 .tm-tab-link {
@@ -358,7 +358,7 @@ label { font-weight: 700; }
 
 .tm-tab-link:hover,
 .tm-tab-link.active {
-    background: #2bca2b;
+    background: #0069d9;
 }
 
 .tab-pane {
@@ -392,7 +392,7 @@ label { font-weight: 700; }
 }
 
 .tm-recommended-price-box {    
-    background-color: #69c6ba;
+    background-color: #007bff;
     background-image: url(./button-curve.png);
     background-repeat: no-repeat;
     background-size: auto 100%;
@@ -419,7 +419,7 @@ label { font-weight: 700; }
     transition: all 0.3s ease;
 }
 
-.tm-recommended-price-box:hover { background-color: #2bca2b; }
+.tm-recommended-price-box:hover { background-color: #0069d9; }
 
 .tm-recommended-price {
     color: white;
@@ -437,7 +437,7 @@ label { font-weight: 700; }
 .tm-d-table { display: table; }
 
 footer {
-    background: #69c6ba;
+    background: #007bff;
     padding-top: 40px;
     padding-bottom: 40px;
     text-align: center;    
@@ -455,7 +455,7 @@ footer p { color: white; }
     font-weight: 600;
 }
 
-.tm-footer-text-highlight:hover { color: #2bca2b; }
+.tm-footer-text-highlight:hover { color: #0069d9; }
 
 .tm-contact-form {
     background: white;
@@ -473,8 +473,8 @@ footer p { color: white; }
 }
 
 .form-control:focus {
-    border-color: #69c6ba;
-    box-shadow: 0 0 0 0.1rem #69c6babf;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.1rem #007bffbf;
 }
 
 .tm-name-container,

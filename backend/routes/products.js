@@ -20,9 +20,33 @@ router.get("/getpackages", async (req, res) => {
         res.status(500).send("Internal Server error occured")
     }
 })
-router.get("/gettoppackages", async (req, res) => {
+
+router.get("/toppackages", async (req, res) => {
     try {
-        const packages = await packagesch.find({"TopPackage": true})
+        const packages = await packagesch.find({"PackageType": "top"})
+        res.status(200).send(packages)
+    }
+    catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server error occured")
+    }
+})
+
+router.get("/featuredpackages", async (req, res) => {
+    try {
+        const packages = await packagesch.find({"PackageType": "featured"})
+        res.status(200).send(packages)
+    }
+    catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server error occured")
+    }
+})
+
+
+router.get("/adventurepackages", async (req, res) => {
+    try {
+        const packages = await packagesch.find({"PackageType": "adventure"})
         res.status(200).send(packages)
     }
     catch (error) {
@@ -40,7 +64,7 @@ router.post("/addpackage", body('PackageName').isLength({ min: 3 }), async (req,
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const { PackageName, PackageDescription, PackageCost,PackageTravel, PackageDeparture,PackageDestination,PackageFlights,PackageHotels,PackageTransfers,PackageActivites, PackageDays,PackageImg,TopPackage } = req.body
+        const { PackageName, PackageDescription, PackageCost,PackageTravel, PackageDeparture,PackageDestination,TravelsNumber,PackageHotels,PackageTransfers,PackageActivites, PackageDays,PackageImg,PackageType } = req.body
         let package = await packagesch.create({
             PackageName: PackageName,
             PackageDescription: PackageDescription,
@@ -48,13 +72,13 @@ router.post("/addpackage", body('PackageName').isLength({ min: 3 }), async (req,
             PackageTravel:PackageTravel,
             PackageDeparture: PackageDeparture,
             PackageDestination: PackageDestination,
-            PackageFlights: PackageFlights,
+            TravelsNumber: TravelsNumber,
             PackageHotels: PackageHotels,
             PackageTransfers: PackageTransfers,
             PackageActivites: PackageActivites,
             PackageDays: PackageDays,
             PackageImg: PackageImg,
-            TopPackage: TopPackage
+            PackageType: PackageType
         })
         res.status(200).send(package)
 
