@@ -26,6 +26,14 @@ const PackageSchema = new Schema({
         type:String,
         required: true,
     },
+    PackageStartDate:{
+        type:Date,
+        required: true,
+    },
+    PackageEndDate:{
+        type:Date,
+        required: true,
+    },
     TravelsNumber:{
         type:Number,
         required: true,

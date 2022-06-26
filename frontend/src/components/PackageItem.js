@@ -41,7 +41,7 @@ const PackageItem = (props) => {
             <img src={srcimage} alt={process.env.PUBLIC_URL + '/img/noImage.jpeg'} className="img-fluid tm-recommended-img" />
             <div className="tm-recommended-description-box">
                 <h3 className="tm-recommended-title">{packagedetails.PackageName}</h3>
-                <p className="tm-text-highlight">From {packagedetails.PackageDeparture} To {packagedetails.PackageDestination}</p>
+                <p className="tm-text-highlight">From {packagedetails.PackageDeparture} To {packagedetails.PackageDestination} ends on: {packagedetails.PackageEndDate}</p>
                 <p className="tm-text-gray">{packagedetails.PackageDescription}</p>
                 <div className="d-flex justify-content-around">
                     <div>

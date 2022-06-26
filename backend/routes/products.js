@@ -13,6 +13,9 @@ secretKey = "nodemon@JWT"
 router.get("/getpackages", async (req, res) => {
     try {
         if(Object.keys(req.query).length !== 0){
+            const d = new Date();
+            let year = d.getFullYear();
+            console.log(year);
             console.log(Object.keys(req.query));
             console.log(Object.values(req.query));
             const result = Object.values(req.query).every(element => {
@@ -27,11 +30,8 @@ router.get("/getpackages", async (req, res) => {
             }
             else{
                 searchdict = {}
-                // const packages = await packagesch.find({'PackageTravel':'train'})
-                // res.status(200).send(packages)
                 
                 for (let index = 0; index < Object.values(req.query).length; index++) {
-                    console.log("hi");
                     const element = Object.values(req.query)[index];
                     if(element == 'flight' || element == 'train' || element == 'bus' || element == 'cab'){
                         searchdict['PackageTravel'] = element
@@ -47,15 +47,39 @@ router.get("/getpackages", async (req, res) => {
                             searchdict['PackageDays'] = {$gt:12}
                         }  
                     }
+                    if(element == '7kless' || element == '7kto13k' || element == '13kto20k' || element == '20kmore'){
+                        if(element == '7kless'){
+                            searchdict['PackageCost'] = {$lt:7000}
+                        }
+                        if(element == '7kto13k'){
+                            searchdict['PackageCost'] = {$lt:13000,$gte:7000}
+                        }
+                        if(element == '13kto20k'){
+                            searchdict['PackageCost'] = {$gte:13000,$lt:20000}
+                        }  
+                        if(element == '20kmore'){
+                            searchdict['PackageCost'] = {$gte:20000}
+                        }  
+                    }
+                    if(element =='Jan'+' '+year || element =='Feb'+' '+year || element =='Mar'+' '+year || element =='Apr'+' '+year || element =='May'+' '+year || element =='Jun'+' '+year || element =='Jul'+' '+year || element =='Aug'+' '+year || element =='Sep'+' '+year || element =='Oct'+' '+year || element =='Nov'+' '+year || element =='Dec'+' '+year || element == 'Jan'+' '+(year+1) || element == 'Feb'+' '+(year+1) || element == 'Mar'+' '+(year+1) || element == 'Apr'+' '+(year+1) || element == 'May'+' '+(year+1) || element =='Jun'+' '+(year+1) || element =='Jul'+' '+(year+1) || element =='Aug'+' '+(year+1) || element =='Sep'+' '+(year+1) || element =='Oct'+' '+(year+1) || element =='Nov'+' '+(year+1) || element =='Dec'+' '+(year+1))
+                    {
+                        const allmonthsnames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+                        const month = allmonthsnames.indexOf(element.substring(0,3))
+                        const year = element.substring(4,8)
+                        const date = new Date(year,month,31)
+
+                        searchdict['PackageStartDate'] = {$lte:date}
+                        searchdict['PackageEndDate'] = {$gte:date}
+                        console.log(date);
+
+                    }
                 }
-                // console.log(searchdict);
                 const packages= await packagesch.find(searchdict)
                 res.status(200).send(packages)
-                // console.log(packages);
             }
         }
         else{
-            const packages = await packagesch.find()
+            const packages = await packagesch.find({PackageStartDate:{$gte:new Date("2022-07-24")}})
             res.status(200).send(packages)
         }
     }
@@ -128,7 +152,7 @@ router.post("/addpackage", body('PackageName').isLength({ min: 3 }), async (req,
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const { PackageName, PackageDescription, PackageCost,PackageTravel, PackageDeparture,PackageDestination,TravelsNumber,PackageHotels,PackageTransfers,PackageActivites, PackageDays,PackageImg,PackageType } = req.body
+        const { PackageName, PackageDescription, PackageCost,PackageTravel, PackageDeparture,PackageDestination, PackageStartDate, PackageEndDate,TravelsNumber,PackageHotels,PackageTransfers,PackageActivites, PackageDays,PackageImg,PackageType } = req.body
         let package = await packagesch.create({
             PackageName: PackageName,
             PackageDescription: PackageDescription,
@@ -136,6 +160,8 @@ router.post("/addpackage", body('PackageName').isLength({ min: 3 }), async (req,
             PackageTravel:PackageTravel,
             PackageDeparture: PackageDeparture,
             PackageDestination: PackageDestination,
+            PackageStartDate: PackageStartDate,
+            PackageEndDate: PackageEndDate,
             TravelsNumber: TravelsNumber,
             PackageHotels: PackageHotels,
             PackageTransfers: PackageTransfers,

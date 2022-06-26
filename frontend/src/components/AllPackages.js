@@ -7,6 +7,40 @@ const AllPackages = (props) => {
   const [packages, setPackages] = useState([])
   const [travel, setTravel] = useState("any")
   const [nights, setNights] = useState("any")
+  const [price, setPrice] = useState("any")
+  const [date, setDate] = useState("any")
+  var monthYear =[]
+  const month = ["any","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const d = new Date();
+  // let monthName = month[d.getMonth()];
+  let year = d.getFullYear();
+  var i=0
+  let index = d.getMonth()+1
+  monthYear.push(
+    {
+      'year':'',
+      'month':'any'
+    }
+  )
+  while (i<12) {
+    if(index <=12){
+
+      monthYear.push({
+        'year':year,
+        'month':month[index]
+      })
+    }
+    else{
+
+      monthYear.push({
+        'year':year+1,
+        'month':month[index-12]
+      })
+    }
+    index=index+1
+    i=i+1
+  }
+  // console.log(monthYear)
 
   const fetchproducts = useCallback(
     () => {
@@ -49,7 +83,7 @@ const AllPackages = (props) => {
     const temp = e.target.value
     setTravel(temp)
     console.log(travel);
-    Axios.get(` http://localhost:5000/api/products/getpackages?travelmode=${e.target.value}&nights=${nights}`, {
+    Axios.get(` http://localhost:5000/api/products/getpackages?travelmode=${e.target.value}&nights=${nights}&price=${price}&month=${date}`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -68,7 +102,7 @@ const AllPackages = (props) => {
   const durationOnChange = (e) => {
     e.preventDefault();
     setNights(e.target.value)
-    Axios.get(` http://localhost:5000/api/products/getpackages?travelmode=${travel}&nights=${e.target.value}`, {
+    Axios.get(` http://localhost:5000/api/products/getpackages?travelmode=${travel}&nights=${e.target.value}&price=${price}&month=${date}`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -87,6 +121,52 @@ const AllPackages = (props) => {
       });
   }
 
+  const priceOnChange = (e) =>{
+    e.preventDefault();
+    setPrice(e.target.value)
+    Axios.get(` http://localhost:5000/api/products/getpackages?travelmode=${travel}&nights=${nights}&price=${e.target.value}&month=${date}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    }).then(function (response) {
+      console.log("set");
+      setPackages(response.data)
+      console.log(packages);
+      if (packages) {
+        console.log("nothing1");
+      }
+    })
+      .catch(function (error) {
+        console.log(error)
+        props.promptAlert(error.response.data.message, "danger")
+      });
+  }
+
+
+  const dateOnChange = (e) =>{
+    e.preventDefault();
+    console.log("target");
+    setDate(e.target.value)
+    console.log(e.target.value);
+    Axios.get(` http://localhost:5000/api/products/getpackages?travelmode=${travel}&nights=${nights}&price=${price}&month=${e.target.value}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    }).then(function (response) {
+      console.log("set3");
+      setPackages(response.data)
+      console.log(packages);
+      if (packages) {
+        console.log("nothing3");
+      }
+    })
+      .catch(function (error) {
+        console.log(error)
+        props.promptAlert(error.response.data.message, "danger")
+      });
+  }
 
   // const getfilters = useCallback(() => {
   //   console.log("filters");
@@ -134,21 +214,22 @@ const AllPackages = (props) => {
 
           <div className='packitem'>
             <label htmlFor="inputRoom">Cost Per Person</label>
-            <select name="room" defaultValue="lsdkjfl" className="form-control tm-select" id="inputRoom">
-              <option value="1" >Bus</option>
-              <option value="2">Cab</option>
-              <option value="3">Train</option>
-              <option value="4">Flight</option>
+            <select name="room" value={price} onChange={(e) => { priceOnChange(e) }}  className="form-control tm-select" id="inputRoom">
+              <option label='any' value="any">Any</option>
+              <option label='< 7000 Rs' value="7kless" >less than 7k</option>
+              <option label='7k Rs - 13k Rs' value="7kto13k">7k to 13k</option>
+              <option label='13k - 20k Rs' value="13kto20k">13k to 20k</option>
+              <option label='>20,0000Rs' value="20kmore">greater than 20k</option>
             </select>
           </div>
 
           <div className='packitem'>
             <label htmlFor="inputRoom">Month Of Travel</label>
-            <select name="room" defaultValue="Flight" className="form-control tm-select" id="inputRoom">
-              <option value="1" >Bus</option>
-              <option value="2">Cab</option>
-              <option value="3">Train</option>
-              <option value="4">Flight</option>
+            <select name="room" value={date} onChange={(e) => { dateOnChange(e) }} className="form-control tm-select" id="inputRoom">
+            {monthYear.map(({ month, year }) => {
+              // console.log(month+year);
+              return <option label={month+' '+year} value={month+' '+year} ></option>
+            })}
             </select>
           </div>
 
