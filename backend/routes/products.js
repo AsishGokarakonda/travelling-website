@@ -12,8 +12,52 @@ secretKey = "nodemon@JWT"
 
 router.get("/getpackages", async (req, res) => {
     try {
-        const packages = await packagesch.find()
-        res.status(200).send(packages)
+        if(Object.keys(req.query).length !== 0){
+            console.log(Object.keys(req.query));
+            console.log(Object.values(req.query));
+            const result = Object.values(req.query).every(element => {
+                if (element === Object.values(req.query)[0]) {
+                  return true;
+                }
+              });
+            
+            if (result){
+                const packages = await packagesch.find()
+                res.status(200).send(packages)
+            }
+            else{
+                searchdict = {}
+                // const packages = await packagesch.find({'PackageTravel':'train'})
+                // res.status(200).send(packages)
+                
+                for (let index = 0; index < Object.values(req.query).length; index++) {
+                    console.log("hi");
+                    const element = Object.values(req.query)[index];
+                    if(element == 'flight' || element == 'train' || element == 'bus' || element == 'cab'){
+                        searchdict['PackageTravel'] = element
+                    }
+                    if(element == 'lessnights' || element == 'averagenights' || element == 'morenights'){
+                        if(element == 'lessnights'){
+                            searchdict['PackageDays'] = {$lte:7}
+                        }
+                        if(element == 'averagenights'){
+                            searchdict['PackageDays'] = {$lte:8,$gte:12}
+                        }
+                        if(element == 'morenights'){
+                            searchdict['PackageDays'] = {$gt:12}
+                        }  
+                    }
+                }
+                // console.log(searchdict);
+                const packages= await packagesch.find(searchdict)
+                res.status(200).send(packages)
+                // console.log(packages);
+            }
+        }
+        else{
+            const packages = await packagesch.find()
+            res.status(200).send(packages)
+        }
     }
     catch (error) {
         console.error(error.message);
@@ -42,6 +86,26 @@ router.get("/featuredpackages", async (req, res) => {
         res.status(500).send("Internal Server error occured")
     }
 })
+
+
+router.get("/adventurepackages", async (req, res) => {
+    try {
+        const packages = await packagesch.find({"PackageType": "adventure"})
+        res.status(200).send(packages)
+    }
+    catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server error occured")
+    }
+})
+
+
+
+
+
+
+
+
 
 
 router.get("/adventurepackages", async (req, res) => {

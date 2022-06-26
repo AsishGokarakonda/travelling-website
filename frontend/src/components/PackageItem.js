@@ -43,7 +43,7 @@ const PackageItem = (props) => {
                 <h3 className="tm-recommended-title">{packagedetails.PackageName}</h3>
                 <p className="tm-text-highlight">From {packagedetails.PackageDeparture} To {packagedetails.PackageDestination}</p>
                 <p className="tm-text-gray">{packagedetails.PackageDescription}</p>
-                <div class="d-flex justify-content-around">
+                <div className="d-flex justify-content-around">
                     <div>
                         {decideTravelIcon}
                         <p style={{ textAlign: "center" }}>{packagedetails.TravelsNumber} {travel}</p>
