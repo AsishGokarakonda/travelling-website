@@ -34,6 +34,10 @@ const PackageSchema = new Schema({
         type:Date,
         required: true,
     },
+    PackageMeals:{
+        type:Boolean,
+        required: true,
+    },
     TravelsNumber:{
         type:Number,
         required: true,

@@ -17,6 +17,11 @@ const Navbar = (props) => {
     navigate("/login")
     // console.log(localStorage.getItem("Authorization"))
   }
+  console.log(loc.pathname)
+  const handleOnClick = () =>{
+  //  document.getElementById('mainNav').classList.toggle('collapsing');
+    document.getElementById('mainNav').classList.toggle('show');
+  }
 
   return (
     <div className="tm-top-bar" id="tm-top-bar">
@@ -27,7 +32,7 @@ const Navbar = (props) => {
               <img src={process.env.PUBLIC_URL + '/img/logo.png'} alt="Site logo" />
               
             </Link>
-            <button type="button" id="nav-toggle" className="navbar-toggler collapsed" data-toggle="collapse" data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button type="button" id="nav-toggle" className="navbar-toggler collapsed" data-toggle="collapse" data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation" onClick={handleOnClick}>
               <span className="navbar-toggler-icon"></span>
             </button>
             <div id="mainNav" className="collapse navbar-collapse tm-bg-white">
@@ -39,7 +44,7 @@ const Navbar = (props) => {
                   <Link className={`nav-link ${loc.pathname === "/alltypes" ? "active" : ""}`} style={{ fontSize: "15px" }} to="/alltypes">Types</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className={`nav-link ${loc.pathname === "/allpackages" ? "active" : ""}`} style={{ fontSize: "15px" }} to="/allpackages">Packages</Link>
+                  <Link className={`nav-link ${(loc.pathname === "/allpackages" || loc.pathname === "/viewdetails/:id") ? "active" : ""}`} style={{ fontSize: "15px" }} to="/allpackages">Packages</Link>
                 </li>
                 {!localStorage.getItem("Authorization") ? <li className="nav-item">
                   <Link className={`nav-link ${loc.pathname === "/login" ? "active" : ""}`} style={{ fontSize: "15px" }} to="/login">Login/Signup</Link>

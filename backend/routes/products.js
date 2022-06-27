@@ -140,26 +140,16 @@ router.get("/adventurepackages", async (req, res) => {
 })
 
 
-
-
-
-
-
-
-
-
-router.get("/adventurepackages", async (req, res) => {
-    try {
-        const packages = await packagesch.find({"PackageType": "adventure"})
+router.get("/getparticularpack/:id",async(req,res)=>{
+    try{
+        const packages = await packagesch.findById(req.params.id)
         res.status(200).send(packages)
     }
-    catch (error) {
+    catch(error){
         console.error(error.message);
         res.status(500).send("Internal Server error occured")
     }
 })
-
-
 
 //add notes to a particular person's notes with auth token provided in header
 router.post("/addpackage", body('PackageName').isLength({ min: 3 }), async (req, res) => {
@@ -168,7 +158,7 @@ router.post("/addpackage", body('PackageName').isLength({ min: 3 }), async (req,
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const { PackageName, PackageDescription, PackageCost,PackageTravel, PackageDeparture,PackageDestination, PackageStartDate, PackageEndDate,TravelsNumber,PackageHotels,PackageTransfers,PackageActivites, PackageDays,PackageImg,PackageType } = req.body
+        const { PackageName, PackageDescription, PackageCost,PackageTravel, PackageDeparture,PackageDestination, PackageStartDate, PackageEndDate,PackageMeals,TravelsNumber,PackageHotels,PackageTransfers,PackageActivites, PackageDays,PackageImg,PackageType } = req.body
         let package = await packagesch.create({
             PackageName: PackageName,
             PackageDescription: PackageDescription,
@@ -178,6 +168,7 @@ router.post("/addpackage", body('PackageName').isLength({ min: 3 }), async (req,
             PackageDestination: PackageDestination,
             PackageStartDate: PackageStartDate,
             PackageEndDate: PackageEndDate,
+            PackageMeals:PackageMeals,
             TravelsNumber: TravelsNumber,
             PackageHotels: PackageHotels,
             PackageTransfers: PackageTransfers,

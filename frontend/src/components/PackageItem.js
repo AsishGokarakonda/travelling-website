@@ -4,6 +4,9 @@ import { MdOutlineFlight } from 'react-icons/md'
 import { FaHotel,FaTrain } from 'react-icons/fa'
 import { FaCameraRetro } from 'react-icons/fa'
 import { AiFillCar } from 'react-icons/ai'
+import { FaRupeeSign } from 'react-icons/fa'
+import {IoFastFoodSharp} from 'react-icons/io5'
+
 const PackageItem = (props) => {
     const { packagedetails, image } = props
 
@@ -13,7 +16,7 @@ const PackageItem = (props) => {
     } else {
         srcimage = process.env.PUBLIC_URL + '/img/' + image
     }
-
+    // console.log(packagedetails);
     var decideTravelIcon =<div style={{textAlign:"center"}}><MdOutlineFlight size={"19"} /></div>
     var travel = "flight"
     switch (packagedetails.PackageTravel) {
@@ -48,36 +51,46 @@ const PackageItem = (props) => {
                 <div className="d-flex justify-content-around">
                     <div>
                         {decideTravelIcon}
-                        <p style={{ textAlign: "center" }}>{packagedetails.TravelsNumber} {travel}</p>
+                        <p style={{ textAlign: "center" }}>{packagedetails.TravelsNumber} <span className="widthChangeRemove">{travel}</span>  </p>
                     </div>
 
                     <div>
                         <div style={{textAlign:"center"}}>
                             <FaHotel size={"19"} />
                         </div>
-                        <p style={{ textAlign: "center" }}>{packagedetails.PackageHotels}{packagedetails.PackageHotels>1? " Hotels":" Hotel"}</p>
+                        <p style={{ textAlign: "center" }}>{packagedetails.PackageHotels} <span className="widthChangeRemove">{packagedetails.PackageHotels>1? " Hotels":" Hotel"}</span> </p>
                     </div>
 
                     <div>
                         <div style={{textAlign:"center"}}>
                             <FaCameraRetro size={"19"} />
                         </div>
-                        <p style={{ textAlign: "center" }}>{packagedetails.PackageActivites} {packagedetails.PackageActivites>1? " Activites":" Activity"}</p>
+                        <p style={{ textAlign: "center" }}>{packagedetails.PackageActivites} <span className="widthChangeRemove">{packagedetails.PackageActivites>1? " Activites":" Activity"}</span>  </p>
                     </div>
 
                     <div>
                         <div style={{textAlign:"center"}}>
+                            <IoFastFoodSharp  size={"19"} />
+                        </div>
+                        <p style={{ textAlign: "center" }}> <span>{packagedetails.PackageMeals?"Free":"Paid"}</span> </p>
+                    </div>
+
+                    
+                    <div>
+                        <div style={{textAlign:"center"}}>
                             <AiFillCar  size={"19"} />
                         </div>
-                        <p style={{ textAlign: "center" }}>{packagedetails.PackageTransfers} Transfers</p>
+                        <p style={{ textAlign: "center" }}>{packagedetails.PackageTransfers} <span className="widthChangeRemove">{packagedetails.PackageTransfers>1?"Transfers":"Transfer"}</span> </p>
                     </div>
                 </div>
 
             </div>
             <div id="preload-hover-img"></div>
-            <Link to="/" className="tm-recommended-price-box">
-                <p className="tm-recommended-price">Rs {packagedetails.PackageCost}</p>
-                <p className="tm-recommended-price-link">Continue Reading</p>
+            <Link to={`/viewdetails/${packagedetails._id}`} className="tm-recommended-price-box">
+                <p className="tm-recommended-price">
+                    <span><FaRupeeSign size={18} /></span> 
+                    <span style={{fontSize:"23px"}}>{packagedetails.PackageCost}</span> </p>
+                <p className="tm-recommended-price-link">View Details</p>
             </Link>
         </div>
     )
