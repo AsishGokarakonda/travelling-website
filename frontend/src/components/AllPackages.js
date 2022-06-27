@@ -9,7 +9,10 @@ const AllPackages = (props) => {
   const [nights, setNights] = useState("any")
   const [price, setPrice] = useState("any")
   const [date, setDate] = useState("any")
+  const [departure, setDeparture] = useState("")
+  const [destination, setDestination] = useState("")
   var monthYear =[]
+
   const month = ["any","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
   const d = new Date();
   // let monthName = month[d.getMonth()];
@@ -83,7 +86,7 @@ const AllPackages = (props) => {
     const temp = e.target.value
     setTravel(temp)
     console.log(travel);
-    Axios.get(` http://localhost:5000/api/products/getpackages?travelmode=${e.target.value}&nights=${nights}&price=${price}&month=${date}`, {
+    Axios.get(` http://localhost:5000/api/products/getpackages?travelmode=${e.target.value}&nights=${nights}&price=${price}&month=${date}&departure=${departure}&destination=${destination}`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -102,7 +105,7 @@ const AllPackages = (props) => {
   const durationOnChange = (e) => {
     e.preventDefault();
     setNights(e.target.value)
-    Axios.get(` http://localhost:5000/api/products/getpackages?travelmode=${travel}&nights=${e.target.value}&price=${price}&month=${date}`, {
+    Axios.get(` http://localhost:5000/api/products/getpackages?travelmode=${travel}&nights=${e.target.value}&price=${price}&month=${date}&departure=${departure}&destination=${destination}`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -124,7 +127,7 @@ const AllPackages = (props) => {
   const priceOnChange = (e) =>{
     e.preventDefault();
     setPrice(e.target.value)
-    Axios.get(` http://localhost:5000/api/products/getpackages?travelmode=${travel}&nights=${nights}&price=${e.target.value}&month=${date}`, {
+    Axios.get(` http://localhost:5000/api/products/getpackages?travelmode=${travel}&nights=${nights}&price=${e.target.value}&month=${date}&departure=${departure}&destination=${destination}`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -149,7 +152,7 @@ const AllPackages = (props) => {
     console.log("target");
     setDate(e.target.value)
     console.log(e.target.value);
-    Axios.get(` http://localhost:5000/api/products/getpackages?travelmode=${travel}&nights=${nights}&price=${price}&month=${e.target.value}`, {
+    Axios.get(` http://localhost:5000/api/products/getpackages?travelmode=${travel}&nights=${nights}&price=${price}&month=${e.target.value}&departure=${departure}&destination=${destination}`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -168,6 +171,68 @@ const AllPackages = (props) => {
       });
   }
 
+  const departureOnChange = (e) =>{
+    if(e.target.value[0]===' '){
+      e.target.value = e.target.value.substring(1)
+    }
+    const string = e.target.value.replace(/\s\s+/g, ' ');
+    setDeparture(string)
+    console.log(string);
+  }
+  const departureOnSubmit = (e) =>{
+    e.preventDefault();
+    Axios.get(` http://localhost:5000/api/products/getpackages?travelmode=${travel}&nights=${nights}&price=${price}&month=${date}&departure=${departure}&destination=${destination}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    }
+    ).then(function (response) {
+      console.log("set4");
+      setPackages(response.data)
+      console.log(packages);
+      if (packages) {
+        console.log("nothing4");
+      }
+    })
+      .catch(function (error) {
+        console.log(error)
+        props.promptAlert(error.response.data.message, "danger")
+      });
+
+  }
+
+  const destinationOnChange = (e) =>{
+    if(e.target.value[0]===' '){
+      e.target.value = e.target.value.substring(1)
+    }
+    const string = e.target.value.replace(/\s\s+/g, ' ');
+    setDestination(string)
+    console.log(string);
+  }
+
+  const destinationOnSubmit = (e) =>{
+    e.preventDefault();
+    Axios.get(` http://localhost:5000/api/products/getpackages?travelmode=${travel}&nights=${nights}&price=${price}&month=${date}&departure=${departure}&destination=${destination}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    }
+    ).then(function (response) {
+      console.log("set5");
+      setPackages(response.data)
+      console.log(packages);
+      if (packages) {
+        console.log("nothing5");
+      }
+    })
+      .catch(function (error) {
+        console.log(error)
+        props.promptAlert(error.response.data.message, "danger")
+      });
+
+  }
   // const getfilters = useCallback(() => {
   //   console.log("filters");
   //   console.log(travel);
@@ -245,13 +310,13 @@ const AllPackages = (props) => {
           </div>
         </div>
         <div className='searchdiv'>
-          <form className="d-flex destinationform" role="search">
-            <input style={{ height: "37px", borderRadius: "2px" }} className="form-control me-2" type="search" placeholder="Type your departure..." aria-label="Search" />
-            <button className="btn btn-outline-success" type="submit">Search</button>
+          <form className="d-flex destinationform" style={{marginTop:"5px"}} role="search" onSubmit={departureOnSubmit}>
+            <input value={departure} onChange={departureOnChange}  style={{ height: "36px", borderRadius: "2px"}} className="form-control me-2" type="search" placeholder="Type your departure..." aria-label="Search" />
+            <button className="btn btn-outline-success"  disabled={departure.length ===0 || departure===' '.repeat(departure.length)} style={{height:"36px"}} type="submit">Search</button>
           </form>
-          <form className="d-flex destinationform" role="search">
-            <input style={{ height: "37px", borderRadius: "2px" }} className="form-control me-2" type="search" placeholder="Type your destination..." aria-label="Search" />
-            <button className="btn btn-outline-success" type="submit">Search</button>
+          <form className="d-flex destinationform" style={{marginTop:"5px"}} role="search" onSubmit={destinationOnSubmit}>
+            <input value={destination} onChange={destinationOnChange} style={{ height: "36px", borderRadius: "2px" }} className="form-control me-2" type="search" placeholder="Type your destination..." aria-label="Search" />
+            <button className="btn btn-outline-success"  disabled={destination.length ===0 || destination===' '.repeat(destination.length)} style={{height:"36px"}} type="submit">Search</button>
           </form>
         </div>
       </div>
