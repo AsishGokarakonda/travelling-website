@@ -6,6 +6,7 @@ const connectToMongo = require("./db");
 connectToMongo();
 const authentication = require('./routes/auth.js')
 const products = require('./routes/products.js')
+const packinfo = require('./routes/packinfo.js')
 
 const express = require('express')
 var cors = require('cors')
@@ -19,6 +20,8 @@ const port = process.env.Port || 5000
 app.use(express.json()) 
 app.use("/api/auth",authentication)
 app.use("/api/products",products)
+app.use("/api/packinfo",packinfo)
+
 
 if (process.env.NODE_ENV === "production"){
   const x = __dirname.replace('\\backend','')

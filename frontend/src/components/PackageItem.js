@@ -65,7 +65,7 @@ const PackageItem = (props) => {
                         <div style={{textAlign:"center"}}>
                             <FaCameraRetro size={"19"} />
                         </div>
-                        <p style={{ textAlign: "center" }}>{packagedetails.PackageActivites} <span className="widthChangeRemove">{packagedetails.PackageActivites>1? " Activites":" Activity"}</span>  </p>
+                        <p style={{ textAlign: "center" }}>{packagedetails.PackageActivites} <span className="widthChangeRemove">{packagedetails.PackageActivites>1? " Activities":" Activity"}</span>  </p>
                     </div>
 
                     <div>
