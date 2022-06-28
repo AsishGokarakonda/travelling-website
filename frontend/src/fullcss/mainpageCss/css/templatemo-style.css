@@ -603,6 +603,7 @@ footer p { color: white; }
         display: none;
     }
 
+
     .tm-recommended-place-wrap {
         display: flex;
         flex-wrap: wrap;
@@ -669,4 +670,10 @@ footer p { color: white; }
     .tm-form-group-3 {
         width: 100%;
     }    
+}
+
+@media screen and (max-width: 550px) {
+.fontChangeWidth{
+    font-size: 11px;
+}
 }

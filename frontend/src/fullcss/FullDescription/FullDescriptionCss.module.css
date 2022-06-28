@@ -1,0 +1,40 @@
+/* #MyCarouselTravel{
+    display: flex;
+    animation: scroll 10s linear infinite;
+}
+
+#MainCarouselTravel{
+    overflow: hidden;
+}
+
+.mySlidesTravel{
+    display: block;
+    object-fit: cover;
+    height: 430px;
+    margin: auto;
+}
+
+@keyframes scroll{
+    0%{
+        transform: translateX(0);
+    }
+    100%{
+        transform: translateX(-100%);
+    }
+} */
+
+
+/* body{
+    font-size: 25px;
+} */
+
+.active{
+    background-color: white;
+    border-radius: 25px;
+}
+
+.headingDesc{
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 15px;
+}
