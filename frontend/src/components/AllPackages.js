@@ -5,11 +5,11 @@ import '../fullcss/NavAllPackagesCss/NavPackagesCss.css'
 
 const AllPackages = (props) => {
   const [packages, setPackages] = useState([])
-  const [travel, setTravel] = useState("any")
+  const [travel, setTravel] = useState("none")
   const [nights, setNights] = useState("any")
   const [price, setPrice] = useState("any")
   const [date, setDate] = useState("any")
-  const [departure, setDeparture] = useState("")
+  // const [departure, setDeparture] = useState("")
   const [destination, setDestination] = useState("")
   var monthYear =[]
 
@@ -83,29 +83,30 @@ const AllPackages = (props) => {
   const travelOnChange = (e) => {
     e.preventDefault();
     console.log(e.target.value);
-    const temp = e.target.value
-    setTravel(temp)
-    console.log(travel);
-    Axios.get(` http://localhost:5000/api/products/getpackages?travelmode=${e.target.value}&nights=${nights}&price=${price}&month=${date}&departure=${departure}&destination=${destination}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    }).then(function (response) {
-      console.log("set");
-      setPackages(response.data)
-      console.log(packages);
-    })
-      .catch(function (error) {
-        console.log(error)
-        props.promptAlert(error.response.data.message, "danger")
-      });
+    setTravel(e.target.value)
+    // console.log(e.target.value);
+    // const temp = e.target.value
+    // console.log(travel);
+    // Axios.get(` http://localhost:5000/api/products/getpackages?travelmode=${e.target.value}&nights=${nights}&price=${price}&month=${date}&departure=${departure}&destination=${destination}`, {
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Accept': 'application/json'
+    //   }
+    // }).then(function (response) {
+    //   console.log("set");
+    //   setPackages(response.data)
+    //   console.log(packages);
+    // })
+    //   .catch(function (error) {
+    //     console.log(error)
+    //     props.promptAlert(error.response.data.message, "danger")
+    //   });
   }
 
   const durationOnChange = (e) => {
     e.preventDefault();
     setNights(e.target.value)
-    Axios.get(` http://localhost:5000/api/products/getpackages?travelmode=${travel}&nights=${e.target.value}&price=${price}&month=${date}&departure=${departure}&destination=${destination}`, {
+    Axios.get(` http://localhost:5000/api/products/getpackages?&nights=${e.target.value}&price=${price}&month=${date}&destination=${destination}`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -127,7 +128,7 @@ const AllPackages = (props) => {
   const priceOnChange = (e) =>{
     e.preventDefault();
     setPrice(e.target.value)
-    Axios.get(` http://localhost:5000/api/products/getpackages?travelmode=${travel}&nights=${nights}&price=${e.target.value}&month=${date}&departure=${departure}&destination=${destination}`, {
+    Axios.get(` http://localhost:5000/api/products/getpackages?&nights=${nights}&price=${e.target.value}&month=${date}&destination=${destination}`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -152,7 +153,7 @@ const AllPackages = (props) => {
     console.log("target");
     setDate(e.target.value)
     console.log(e.target.value);
-    Axios.get(` http://localhost:5000/api/products/getpackages?travelmode=${travel}&nights=${nights}&price=${price}&month=${e.target.value}&departure=${departure}&destination=${destination}`, {
+    Axios.get(` http://localhost:5000/api/products/getpackages?&nights=${nights}&price=${price}&month=${e.target.value}&destination=${destination}`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -171,36 +172,36 @@ const AllPackages = (props) => {
       });
   }
 
-  const departureOnChange = (e) =>{
-    if(e.target.value[0]===' '){
-      e.target.value = e.target.value.substring(1)
-    }
-    const string = e.target.value.replace(/\s\s+/g, ' ');
-    setDeparture(string)
-    console.log(string);
-  }
-  const departureOnSubmit = (e) =>{
-    e.preventDefault();
-    Axios.get(` http://localhost:5000/api/products/getpackages?travelmode=${travel}&nights=${nights}&price=${price}&month=${date}&departure=${departure}&destination=${destination}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    }
-    ).then(function (response) {
-      console.log("set4");
-      setPackages(response.data)
-      console.log(packages);
-      if (packages) {
-        console.log("nothing4");
-      }
-    })
-      .catch(function (error) {
-        console.log(error)
-        props.promptAlert(error.response.data.message, "danger")
-      });
+  // const departureOnChange = (e) =>{
+  //   if(e.target.value[0]===' '){
+  //     e.target.value = e.target.value.substring(1)
+  //   }
+  //   const string = e.target.value.replace(/\s\s+/g, ' ');
+  //   setDeparture(string)
+  //   console.log(string);
+  // }
+  // const departureOnSubmit = (e) =>{
+  //   e.preventDefault();
+  //   Axios.get(` http://localhost:5000/api/products/getpackages?&nights=${nights}&price=${price}&month=${date}&destination=${destination}`, {
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json'
+  //     }
+  //   }
+  //   ).then(function (response) {
+  //     console.log("set4");
+  //     setPackages(response.data)
+  //     console.log(packages);
+  //     if (packages) {
+  //       console.log("nothing4");
+  //     }
+  //   })
+  //     .catch(function (error) {
+  //       console.log(error)
+  //       props.promptAlert(error.response.data.message, "danger")
+  //     });
 
-  }
+  // }
 
   const destinationOnChange = (e) =>{
     if(e.target.value[0]===' '){
@@ -213,7 +214,7 @@ const AllPackages = (props) => {
 
   const destinationOnSubmit = (e) =>{
     e.preventDefault();
-    Axios.get(` http://localhost:5000/api/products/getpackages?travelmode=${travel}&nights=${nights}&price=${price}&month=${date}&departure=${departure}&destination=${destination}`, {
+    Axios.get(` http://localhost:5000/api/products/getpackages?&nights=${nights}&price=${price}&month=${date}&destination=${destination}`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -301,7 +302,7 @@ const AllPackages = (props) => {
           <div className='packitem'>
             <label htmlFor="inputRoom">Travel Mode</label>
             <select name="room" value={travel} className="form-control tm-select" id="inputRoom" onChange={(e) => { travelOnChange(e) }}>
-              <option label='any' value="any">Any</option>
+              <option label='none' value="none">none</option>
               <option label='bus' value="bus">Bus</option>
               <option label='cab' value="cab">Cab</option>
               <option label='train' value="train">Train</option>
@@ -310,21 +311,24 @@ const AllPackages = (props) => {
           </div>
         </div>
         <div className='searchdiv'>
-          <form className="d-flex destinationform" style={{marginTop:"5px"}} role="search" onSubmit={departureOnSubmit}>
+
+          {/* <form className="d-flex destinationform" style={{marginTop:"5px"}} role="search" onSubmit={departureOnSubmit}>
             <input value={departure} onChange={departureOnChange}  style={{ height: "36px", borderRadius: "2px"}} className="form-control me-2" type="search" placeholder="Type your departure..." aria-label="Search" />
             <button className="btn btn-outline-success"  disabled={departure.length ===0 || departure===' '.repeat(departure.length)} style={{height:"36px"}} type="submit">Search</button>
-          </form>
+          </form> */}
+
           <form className="d-flex destinationform" style={{marginTop:"5px"}} role="search" onSubmit={destinationOnSubmit}>
             <input value={destination} onChange={destinationOnChange} style={{ height: "36px", borderRadius: "2px" }} className="form-control me-2" type="search" placeholder="Type your destination..." aria-label="Search" />
             <button className="btn btn-outline-success"  disabled={destination.length ===0 || destination===' '.repeat(destination.length)} style={{height:"36px"}} type="submit">Search</button>
           </form>
+
         </div>
       </div>
       <div style={{textAlign: "center",marginTop:"60px",fontSize: "40px"}}>
         {packages.length === 0 && "No packages to display"}
       </div>
       {packages.map((packageitem) => {
-        return <PackageItem packagedetails={packageitem} image={packageitem.PackageImg.search(".") !== -1 ? packageitem.PackageImg : "none"} key={packageitem._id} />
+        return <PackageItem packagedetails={packageitem} image={packageitem.PackageImg.search(".") !== -1 ? packageitem.PackageImg : "none"} key={packageitem._id} travel={travel} />
       })}
     </div>
   )

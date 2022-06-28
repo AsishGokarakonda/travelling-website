@@ -2,8 +2,8 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom';
 import Axios from 'axios'
 import styles2 from '../fullcss/FullDescription/FullDescriptionCss.module.css'
-import { MdOutlineFlight } from 'react-icons/md'
-import { FaHotel, FaTrain } from 'react-icons/fa'
+// import { MdOutlineFlight } from 'react-icons/md'
+import { FaHotel } from 'react-icons/fa'
 import { FaCameraRetro } from 'react-icons/fa'
 import { AiFillCar } from 'react-icons/ai'
 import { IoFastFoodSharp } from 'react-icons/io5'
@@ -80,28 +80,28 @@ const FullDescription = (props) => {
 
   }
 
-  var decideTravelIcon = <div style={{ textAlign: "center" }}><MdOutlineFlight size={"19"} /></div>
-  var travel = "flight"
-  switch (packages.PackageTravel) {
-    case "flight":
-      decideTravelIcon = <div style={{ textAlign: "center" }}><MdOutlineFlight size={"19"} /></div>
-      if (packages.TravelsNumber > 1) {
-        travel = "flights"
-      } else {
-        travel = "flight"
-      }
-      break;
-    case "train":
-      decideTravelIcon = <div style={{ textAlign: "center" }}><FaTrain size={"19"} /></div>
-      if (packages.TravelsNumber > 1) {
-        travel = "trains"
-      } else {
-        travel = "train"
-      }
-      break;
-    default:
-      break;
-  }
+  // var decideTravelIcon = <div style={{ textAlign: "center" }}><MdOutlineFlight size={"19"} /></div>
+  // var travel = "flight"
+  // switch (packages.PackageTravel) {
+  //   case "flight":
+  //     decideTravelIcon = <div style={{ textAlign: "center" }}><MdOutlineFlight size={"19"} /></div>
+  //     if (packages.TravelsNumber > 1) {
+  //       travel = "flights"
+  //     } else {
+  //       travel = "flight"
+  //     }
+  //     break;
+  //   case "train":
+  //     decideTravelIcon = <div style={{ textAlign: "center" }}><FaTrain size={"19"} /></div>
+  //     if (packages.TravelsNumber > 1) {
+  //       travel = "trains"
+  //     } else {
+  //       travel = "train"
+  //     }
+  //     break;
+  //   default:
+  //     break;
+  // }
 
   const getpackoverview = useCallback(
       () => {
@@ -142,25 +142,30 @@ const FullDescription = (props) => {
         {packages.PackageName} - {packages.PackageDays > 1 ? `${packages.PackageDays} Days` : `${packages.PackageDays} Day`} Package
       </div>
       <div className="contFullDesc" style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", flexFlow: "wrap", marginBottom: "20px" }}>
-        <div class="card" style={{ width: "18rem", borderRadius: "13px", marginTop: "10px", marginRight: "0px" }}>
+        {/* <div class="card" style={{ width: "18rem", borderRadius: "13px", marginTop: "10px", marginRight: "0px" }}>
           <img src={process.env.PUBLIC_URL + '/img/departureImg.png'} style={styles.roundimage} class="card-img-top" alt="..." />
           <div class="card-body">
             <h5 class="card-title">Departure</h5>
             <p class="card-text">We will departure at <span style={{ fontWeight: "bold", fontSize: "15px" }}>{packages.PackageDeparture}</span> </p>
           </div>
-        </div>
+        </div> */}
         <div class="card" style={{ width: "18rem", borderRadius: "13px", marginTop: "10px", marginRight: "0px" }}>
           <img src={process.env.PUBLIC_URL + '/img/destinationImg.png'} style={styles.roundimage} class="card-img-top" alt="..." />
           <div class="card-body">
             <h5 class="card-title">Destination</h5>
-            <p class="card-text">We will reach  <span style={{ fontWeight: "bold", fontSize: "15px" }}>{packages.PackageDestination}</span> and start holiday trip</p>
+            <p class="card-text">We will reach  <span style={{ fontWeight: "bold", fontSize: "15px" }}>{packages.PackageDestination}</span> and start holiday trip.
+            <div style={{ fontWeight: "bold", fontSize: "15px" }}>
+              {packages.PackageRoute}
+            </div>
+            </p>
+
           </div>
         </div>
         <div class="card" style={{ width: "18rem", borderRadius: "13px", marginTop: "10px", marginRight: "0px" }}>
           <img src={process.env.PUBLIC_URL + '/img/cost.png'} style={styles.roundimage} class="card-img-top" alt="..." />
           <div class="card-body">
             <h5 class="card-title">Cost</h5>
-            <p class="card-text">Cost of this package is <span style={{ fontWeight: "bold", fontSize: "15px" }}>Rs {packages.PackageCost}</span></p>
+            <p class="card-text">Cost of this package is <span style={{ fontWeight: "bold", fontSize: "15px" }}>Rs {packages.PackageCost}</span> without any travelling charges.</p>
           </div>
         </div>
 
@@ -170,10 +175,10 @@ const FullDescription = (props) => {
 
 
       <div style={styles.contentsDesc} className="d-flex justify-content-around">
-        <div>
+        {/* <div>
           {decideTravelIcon}
           <p className="fontChangeWidth" style={{ textAlign: "center" }}>{packages.TravelsNumber} <span >{travel}</span>  </p>
-        </div>
+        </div> */}
 
         <div>
           <div style={{ textAlign: "center" }}>

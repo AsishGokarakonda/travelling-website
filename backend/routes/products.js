@@ -37,9 +37,9 @@ router.get("/getpackages", async (req, res) => {
                 for (let index = 0; index < Object.values(req.query).length; index++) {
                     const element = Object.values(req.query)[index];
                     const key = Object.keys(req.query)[index];
-                    if((element == 'flight' || element == 'train' || element == 'bus' || element == 'cab') && key == 'travelmode'){
-                        searchdict['PackageTravel'] = element
-                    }
+                    // if((element == 'flight' || element == 'train' || element == 'bus' || element == 'cab') && key == 'travelmode'){
+                    //     searchdict['PackageTravel'] = element
+                    // }
                     if((element == 'lessnights' || element == 'averagenights' || element == 'morenights') && key == 'nights'){
                         if(element == 'lessnights'){
                             searchdict['PackageDays'] = {$lte:7}
@@ -77,12 +77,12 @@ router.get("/getpackages", async (req, res) => {
                         console.log(date);
 
                     }
-                    if(key=='departure'){
-                        if(element !=''){
-                            searchdict['PackageDeparture'] =  { $regex: new RegExp("^" + element.toLowerCase(), "i") } 
-                        }
-                        console.log(searchdict['PackageDeparture']);
-                    }
+                    // if(key=='departure'){
+                    //     if(element !=''){
+                    //         searchdict['PackageDeparture'] =  { $regex: new RegExp("^" + element.toLowerCase(), "i") } 
+                    //     }
+                    //     console.log(searchdict['PackageDeparture']);
+                    // }
                     if(key=='destination'){
                         if(element !=''){
                             searchdict['PackageDestination'] =  { $regex: new RegExp("^" + element.toLowerCase(), "i") } 
@@ -158,18 +158,16 @@ router.post("/addpackage", body('PackageName').isLength({ min: 3 }), async (req,
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const { PackageName, PackageDescription, PackageCost,PackageTravel, PackageDeparture,PackageDestination, PackageStartDate, PackageEndDate,PackageMeals,TravelsNumber,PackageHotels,PackageTransfers,PackageActivites, PackageDays,PackageImg,PackageType } = req.body
+        const { PackageName, PackageDescription, PackageCost,PackageDestination,PackageRoute, PackageStartDate, PackageEndDate,PackageMeals,PackageHotels,PackageTransfers,PackageActivites, PackageDays,PackageImg,PackageType } = req.body
         let package = await packagesch.create({
             PackageName: PackageName,
             PackageDescription: PackageDescription,
             PackageCost: PackageCost,
-            PackageTravel:PackageTravel,
-            PackageDeparture: PackageDeparture,
             PackageDestination: PackageDestination,
             PackageStartDate: PackageStartDate,
             PackageEndDate: PackageEndDate,
+            PackageRoute: PackageRoute,
             PackageMeals:PackageMeals,
-            TravelsNumber: TravelsNumber,
             PackageHotels: PackageHotels,
             PackageTransfers: PackageTransfers,
             PackageActivites: PackageActivites,

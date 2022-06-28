@@ -14,15 +14,11 @@ const PackageSchema = new Schema({
         type:Number,
         required: true,
     },
-    PackageTravel:{
-        type:String,
-        required: true,
-    },
-    PackageDeparture:{
-        type:String,
-        required: true,
-    },
     PackageDestination:{
+        type:String,
+        required: true,
+    },
+    PackageRoute:{
         type:String,
         required: true,
     },
@@ -36,10 +32,6 @@ const PackageSchema = new Schema({
     },
     PackageMeals:{
         type:Boolean,
-        required: true,
-    },
-    TravelsNumber:{
-        type:Number,
         required: true,
     },
     PackageHotels:{

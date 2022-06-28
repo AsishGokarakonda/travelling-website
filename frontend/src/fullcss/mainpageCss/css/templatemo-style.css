@@ -393,7 +393,7 @@ label { font-weight: 700; }
 
 .tm-recommended-price-box {    
     background-color: #007bff;
-    background-image: url(./button-curve.png);
+    /* background-image: url(./button-curve.png); */
     background-repeat: no-repeat;
     background-size: auto 100%;
     font-weight: 400;
@@ -414,7 +414,7 @@ label { font-weight: 700; }
     -webkit-justify-content: center;
     -ms-flex-pack: center;
     justify-content: center;
-    padding-left: 20px;
+    /* padding-left: 20px; */
     width: 200px;
     transition: all 0.3s ease;
 }
@@ -643,7 +643,7 @@ footer p { color: white; }
         top: -45px;
         left: 45px;
         z-index: 27;
-        background: url(./button-curve.png) 0 0 no-repeat;
+        /* background: url(./button-curve.png) 0 0 no-repeat; */
         -webkit-transform: rotate(90deg);
         transform: rotate(90deg);
         background-size: auto 100%;      
