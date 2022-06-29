@@ -12,6 +12,7 @@ import { IoFastFoodSharp } from 'react-icons/io5'
 const FullDescription = (props) => {
   const [packages, setPackages] = useState({})
   const [packoverview, setPackoverview] = useState([{'fulldescription':"",'highlights':"",'traveldetails':"",'accommodation':"",'activities':"",'meals':"",'transfers':""}])
+  const [route, setRoute] = useState([])
   const params = useParams();
   const id = params.id;
 
@@ -142,30 +143,30 @@ const FullDescription = (props) => {
         {packages.PackageName} - {packages.PackageDays > 1 ? `${packages.PackageDays} Days` : `${packages.PackageDays} Day`} Package
       </div>
       <div className="contFullDesc" style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", flexFlow: "wrap", marginBottom: "20px" }}>
-        {/* <div class="card" style={{ width: "18rem", borderRadius: "13px", marginTop: "10px", marginRight: "0px" }}>
-          <img src={process.env.PUBLIC_URL + '/img/departureImg.png'} style={styles.roundimage} class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-title">Departure</h5>
-            <p class="card-text">We will departure at <span style={{ fontWeight: "bold", fontSize: "15px" }}>{packages.PackageDeparture}</span> </p>
+        {/* <div className="card" style={{ width: "18rem", borderRadius: "13px", marginTop: "10px", marginRight: "0px" }}>
+          <img src={process.env.PUBLIC_URL + '/img/departureImg.png'} style={styles.roundimage} className="card-img-top" alt="..." />
+          <div className="card-body">
+            <h5 className="card-title">Departure</h5>
+            <p className="card-text">We will departure at <span style={{ fontWeight: "bold", fontSize: "15px" }}>{packages.PackageDeparture}</span> </p>
           </div>
         </div> */}
-        <div class="card" style={{ width: "18rem", borderRadius: "13px", marginTop: "10px", marginRight: "0px" }}>
-          <img src={process.env.PUBLIC_URL + '/img/destinationImg.png'} style={styles.roundimage} class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-title">Destination</h5>
-            <p class="card-text">We will reach  <span style={{ fontWeight: "bold", fontSize: "15px" }}>{packages.PackageDestination}</span> and start holiday trip.
-            <div style={{ fontWeight: "bold", fontSize: "15px" }}>
+        <div className="card" style={{ width: "18rem", borderRadius: "13px", marginTop: "10px", marginRight: "0px" }}>
+          <img src={process.env.PUBLIC_URL + '/img/destinationImg.png'} style={styles.roundimage} className="card-img-top" alt="..." />
+          <div className="card-body">
+            <h5 className="card-title">Destination</h5>
+            <p className="card-text">We will reach  <span style={{ fontWeight: "bold", fontSize: "15px" }}>{packages.PackageDestination}</span> and start holiday trip.
+            <p style={{ fontWeight: "bold", fontSize: "15px" }}>
               {packages.PackageRoute}
-            </div>
+            </p>
             </p>
 
           </div>
         </div>
-        <div class="card" style={{ width: "18rem", borderRadius: "13px", marginTop: "10px", marginRight: "0px" }}>
-          <img src={process.env.PUBLIC_URL + '/img/cost.png'} style={styles.roundimage} class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-title">Cost</h5>
-            <p class="card-text">Cost of this package is <span style={{ fontWeight: "bold", fontSize: "15px" }}>Rs {packages.PackageCost}</span> without any travelling charges.</p>
+        <div className="card" style={{ width: "18rem", borderRadius: "13px", marginTop: "10px", marginRight: "0px" }}>
+          <img src={process.env.PUBLIC_URL + '/img/cost.png'} style={styles.roundimage} className="card-img-top" alt="..." />
+          <div className="card-body">
+            <h5 className="card-title">Cost</h5>
+            <p className="card-text">Cost of this package is <span style={{ fontWeight: "bold", fontSize: "15px" }}>Rs {packages.PackageCost}</span> without any travelling charges.</p>
           </div>
         </div>
 
@@ -210,7 +211,18 @@ const FullDescription = (props) => {
         </div>
       </div>
 
-      <div class="d-flex justify-content-start" style={{ borderRadius: "25px", backgroundColor: "#d8d8d8" }}>
+      <div style={{border:"2px solid red"}}>
+        <div className={styles2.headingDesc} style={{fontSize:"32px"}}>
+          Route 
+        </div>
+        <div style={{textAlign:"center"}}>
+
+        </div>
+      </div>
+
+
+
+      <div className="d-flex justify-content-start" style={{ borderRadius: "25px", backgroundColor: "#d8d8d8" }}>
         <div className={`${styles2.active}`} id='overviewDesc' style={styles.eachdiv} onClick={handleOnClick}>
           Overview
         </div>
@@ -219,61 +231,62 @@ const FullDescription = (props) => {
         </div>
       </div>
       <div className='container' style={{marginTop: "15px", fontSize: "20px" }}>
-        <div class="card" style={{marginBottom:"15px"}}>
-          <div class="card-header" style={{fontWeight:"bold",color:"#005cbe"}}>
+        <div className="card" style={{marginBottom:"15px"}}>
+          <div className="card-header" style={{fontWeight:"bold",color:"#005cbe"}}>
             Description
           </div>
-          <div class="card-body">
-            <p class="card-text">{packoverview[0]['fulldescription']}</p>
+          <div className="card-body">
+            <p className="card-text">{packoverview[0]['fulldescription']}</p>
           </div>
         </div>
         
-        <div class="card" style={{marginBottom:"15px"}}>
-          <div class="card-header" style={{fontWeight:"bold",color:"#005cbe"}}>
+        <div className="card" style={{marginBottom:"15px"}}>
+          <div className="card-header" style={{fontWeight:"bold",color:"#005cbe"}}>
             Highlights
           </div>
-          <div class="card-body">
-            <p class="card-text">{packoverview[0]['highlights']}</p>
+          <div className="card-body">
+            <p className="card-text">{packoverview[0]['highlights']}</p>
           </div>
         </div>
 
-        <div class="card" style={{marginBottom:"15px"}}>
-          <div class="card-header" style={{fontWeight:"bold",color:"#005cbe"}}>
+        <div className="card" style={{marginBottom:"15px"}}>
+          <div className="card-header" style={{fontWeight:"bold",color:"#005cbe"}}>
           Accommodation
           </div>
-          <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">{packoverview[0]['accommodation']}</p>
+          <div className="card-body">
+          
+          <h5 className="card-title" style={{fontWeight:"bold"}}>{packages.PackageHotels} {packages.PackageHotels > 1 ? " Hotels" : " Hotel"}</h5>
+            <p className="card-text">{packoverview[0]['accommodation']}</p>
           </div>
         </div>
 
-        <div class="card" style={{marginBottom:"15px"}}>
-          <div class="card-header" style={{fontWeight:"bold",color:"#005cbe"}}>
+        <div className="card" style={{marginBottom:"15px"}}>
+          <div className="card-header" style={{fontWeight:"bold",color:"#005cbe"}}>
           Activities
           </div>
-          <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">{packoverview[0]['activities']}</p>
+          <div className="card-body">
+          <h5 className="card-title" style={{fontWeight:"bold"}}>{packages.PackageActivites} {packages.PackageActivites > 1 ? " Activities" : " Activity"}</h5>
+            <p className="card-text">{packoverview[0]['activities']}</p>
           </div>
         </div>
 
-        <div class="card" style={{marginBottom:"15px"}}>
-          <div class="card-header" style={{fontWeight:"bold",color:"#005cbe"}}>
+        <div className="card" style={{marginBottom:"15px"}}>
+          <div className="card-header" style={{fontWeight:"bold",color:"#005cbe"}}>
           Meals
           </div>
-          <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">{packoverview[0]['meals']}</p>
+          <div className="card-body">
+          <h5 className="card-title" style={{fontWeight:"bold"}}>{packages.PackageMeals ? "Free" : "Paid"}</h5>
+            <p className="card-text">{packoverview[0]['meals']}</p>
           </div>
         </div>
 
-        <div class="card" style={{marginBottom:"15px"}}>
-          <div class="card-header" style={{fontWeight:"bold",color:"#005cbe"}}>
+        <div className="card" style={{marginBottom:"15px"}}>
+          <div className="card-header" style={{fontWeight:"bold",color:"#005cbe"}}>
           Transfers
           </div>
-          <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">{packoverview[0]['transfers']}</p>
+          <div className="card-body">
+            <h5 className="card-title" style={{fontWeight:"bold"}}>{packages.PackageTransfers} {packages.PackageTransfers > 1 ? "Transfers" : "Transfer"}</h5>
+            <p className="card-text">{packoverview[0]['transfers']}</p>
           </div>
         </div>
 
