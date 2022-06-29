@@ -3,19 +3,23 @@ import { useParams } from 'react-router-dom';
 import Axios from 'axios'
 import styles2 from '../fullcss/FullDescription/FullDescriptionCss.module.css'
 // import { MdOutlineFlight } from 'react-icons/md'
-import { FaHotel } from 'react-icons/fa'
+import { FaHotel, FaPlaneDeparture, FaPlaneArrival } from 'react-icons/fa'
 import { FaCameraRetro } from 'react-icons/fa'
 import { AiFillCar } from 'react-icons/ai'
 import { IoFastFoodSharp } from 'react-icons/io5'
 
 
 const FullDescription = (props) => {
-  const [packages, setPackages] = useState({})
-  const [packoverview, setPackoverview] = useState([{'fulldescription':"",'highlights':"",'traveldetails':"",'accommodation':"",'activities':"",'meals':"",'transfers':""}])
-  const [route, setRoute] = useState([])
+  const [packages, setPackages] = useState({
+    "PackageName": "", "PackageDescription": "",
+    "PackageCost": null, "PackageDestination": "", "PackageRoute": "", "PackageStartDate": null, "PackageEndDate": null, "PackageMeals": null, "PackageHotels": null, "PackageTransfers": null, "PackageActivites": null, "PackageDays": null, "PackageType": "", "PackageImg": ""
+  })
+  const [packoverview, setPackoverview] = useState([{ 'fulldescription': "", 'highlights': "", 'traveldetails': "", 'accommodation': "", 'activities': "", 'meals': "", 'transfers': "" }])
+  const [datestr, setDatestr] = useState("")
+  const [totaldays, setTotaldays] = useState([])
+  const [day, setDay] = useState(1)
   const params = useParams();
   const id = params.id;
-
   const fetchaproduct = useCallback(
     () => {
       Axios.get(`http://localhost:5000/api/products/getparticularpack/${id}`, {
@@ -25,6 +29,7 @@ const FullDescription = (props) => {
         }
       }).then(function (response) {
         setPackages(response.data)
+
       })
         .catch(function (error) {
           console.log(error)
@@ -34,9 +39,10 @@ const FullDescription = (props) => {
     [props, id]
   )
   useEffect(() => {
-        fetchaproduct()
+    fetchaproduct()
+
   }, [fetchaproduct])
-  
+
   // useEffect(() => {
   //   Axios.get(`http://localhost:5000/api/products/getparticularpack/${id}`, {
   //     headers: {
@@ -72,10 +78,15 @@ const FullDescription = (props) => {
     if (e.target.id === "EachDayPlan") {
       e.target.classList.add(styles2.active);
       document.getElementById("overviewDesc").classList.remove(styles2.active);
+      document.getElementById("fullcontaineroverview").style.display = "none";
+      document.getElementById("fullcontaineritinerary").style.display = "block";
     }
     if (e.target.id === "overviewDesc") {
       e.target.classList.add(styles2.active);
       document.getElementById("EachDayPlan").classList.remove(styles2.active);
+      document.getElementById("fullcontaineroverview").style.display = "block";
+      document.getElementById("fullcontaineritinerary").style.display = "none";
+
     }
     console.log(id);
 
@@ -105,21 +116,21 @@ const FullDescription = (props) => {
   // }
 
   const getpackoverview = useCallback(
-      () => {
-        Axios.get(`http://localhost:5000/api/packinfo/getpackoverview/${id}`, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          }
-        }).then(function (response) {
-          setPackoverview(response.data)
-        })
-          .catch(function (error) {
-            console.log(error)
-            props.promptAlert(error.response.data.message, "danger")
-          });
-      },
-      [props, id]
+    () => {
+      Axios.get(`http://localhost:5000/api/packinfo/getpackoverview/${id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      }).then(function (response) {
+        setPackoverview(response.data)
+      })
+        .catch(function (error) {
+          console.log(error)
+          props.promptAlert(error.response.data.message, "danger")
+        });
+    },
+    [props, id]
   )
 
   useEffect(() => {
@@ -127,6 +138,31 @@ const FullDescription = (props) => {
   }, [getpackoverview])
   console.log(packoverview[0]);
 
+  useEffect(() => {
+    var date = new Date(packages.PackageEndDate)
+    var year = date.getFullYear()
+    var month = date.getMonth() + 1
+    var dt = date.getDate();
+
+    if (dt < 10) {
+      dt = '0' + dt;
+    }
+    if (month < 10) {
+      month = '0' + month;
+    }
+    var str = ''
+    str = year + '-' + month + '-' + dt;
+    setDatestr(str)
+    var arr = [];
+    for (let index = 0; index < packages.PackageDays; index++) {
+      arr.push(index + 1)
+    }
+    setTotaldays(arr)
+  }, [packages.PackageEndDate, packages.PackageDays])
+
+  const dayOnChange = (e) => {
+    setDay(e.target.value)
+  }
   return (
     <div className='container' style={{ marginTop: "150px" }}>
       {/* <div id='MyCarouselTravel' style={{ marginTop: "150px" }}>
@@ -155,18 +191,27 @@ const FullDescription = (props) => {
           <div className="card-body">
             <h5 className="card-title">Destination</h5>
             <p className="card-text">We will reach  <span style={{ fontWeight: "bold", fontSize: "15px" }}>{packages.PackageDestination}</span> and start holiday trip.
-            <p style={{ fontWeight: "bold", fontSize: "15px" }}>
-              {packages.PackageRoute}
-            </p>
+              <p style={{ fontWeight: "bold", fontSize: "15px" }}>
+                {packages.PackageRoute}
+              </p>
             </p>
 
           </div>
         </div>
+
         <div className="card" style={{ width: "18rem", borderRadius: "13px", marginTop: "10px", marginRight: "0px" }}>
           <img src={process.env.PUBLIC_URL + '/img/cost.png'} style={styles.roundimage} className="card-img-top" alt="..." />
           <div className="card-body">
             <h5 className="card-title">Cost</h5>
             <p className="card-text">Cost of this package is <span style={{ fontWeight: "bold", fontSize: "15px" }}>Rs {packages.PackageCost}</span> without any travelling charges.</p>
+          </div>
+        </div>
+
+        <div className="card" style={{ width: "18rem", borderRadius: "13px", marginTop: "10px", marginRight: "0px" }}>
+          <img src={process.env.PUBLIC_URL + '/img/clock.png'} style={styles.roundimage} className="card-img-top" alt="..." />
+          <div className="card-body">
+            <h5 className="card-title">End Date</h5>
+            <p className="card-text">This package ends on <span style={{ fontWeight: "bold", fontSize: "15px" }}>{datestr}</span></p>
           </div>
         </div>
 
@@ -211,12 +256,18 @@ const FullDescription = (props) => {
         </div>
       </div>
 
-      <div style={{border:"2px solid red"}}>
-        <div className={styles2.headingDesc} style={{fontSize:"32px"}}>
-          Route 
+      <div style={{ marginBottom: "15px" }}>
+        <div className={styles2.headingDesc} style={{ fontSize: "32px" }}>
+          Route
+          <hr style={{ marginTop: "0px" }} />
         </div>
-        <div style={{textAlign:"center"}}>
-
+        <div style={{ textAlign: "center", fontSize: "25px" }}>
+          <span><FaPlaneArrival size={23} /></span>   <span style={{ color: "#005cbe" }}>&rarr;</span> {packages.PackageDestination}  <span style={{ color: "#005cbe" }}>&rarr; </span>
+          {packages.PackageRoute.split(" - ").map((element) => {
+            return <span>{element} <span style={{ color: "#005cbe" }}>&rarr; </span> </span>
+          })}
+          {packages.PackageDestination} <span style={{ color: "#005cbe" }}>&rarr;</span>
+          <span><FaPlaneDeparture size={21} /></span>
         </div>
       </div>
 
@@ -230,18 +281,18 @@ const FullDescription = (props) => {
           Itinerary
         </div>
       </div>
-      <div className='container' style={{marginTop: "15px", fontSize: "20px" }}>
-        <div className="card" style={{marginBottom:"15px"}}>
-          <div className="card-header" style={{fontWeight:"bold",color:"#005cbe"}}>
+      <div className={`container ${styles2.overviewfullcont}`} id="fullcontaineroverview" style={{ marginTop: "15px", fontSize: "20px" }}>
+        <div className="card" style={{ marginBottom: "15px" }}>
+          <div className="card-header" style={{ fontWeight: "bold", color: "#005cbe" }}>
             Description
           </div>
           <div className="card-body">
             <p className="card-text">{packoverview[0]['fulldescription']}</p>
           </div>
         </div>
-        
-        <div className="card" style={{marginBottom:"15px"}}>
-          <div className="card-header" style={{fontWeight:"bold",color:"#005cbe"}}>
+
+        <div className="card" style={{ marginBottom: "15px" }}>
+          <div className="card-header" style={{ fontWeight: "bold", color: "#005cbe" }}>
             Highlights
           </div>
           <div className="card-body">
@@ -249,49 +300,76 @@ const FullDescription = (props) => {
           </div>
         </div>
 
-        <div className="card" style={{marginBottom:"15px"}}>
-          <div className="card-header" style={{fontWeight:"bold",color:"#005cbe"}}>
-          Accommodation
+        <div className="card" style={{ marginBottom: "15px" }}>
+          <div className="card-header" style={{ fontWeight: "bold", color: "#005cbe" }}>
+            Accommodation
           </div>
           <div className="card-body">
-          
-          <h5 className="card-title" style={{fontWeight:"bold"}}>{packages.PackageHotels} {packages.PackageHotels > 1 ? " Hotels" : " Hotel"}</h5>
+
+            <h5 className="card-title" style={{ fontWeight: "bold" }}>{packages.PackageHotels} {packages.PackageHotels > 1 ? " Hotels" : " Hotel"}</h5>
             <p className="card-text">{packoverview[0]['accommodation']}</p>
           </div>
         </div>
 
-        <div className="card" style={{marginBottom:"15px"}}>
-          <div className="card-header" style={{fontWeight:"bold",color:"#005cbe"}}>
-          Activities
+        <div className="card" style={{ marginBottom: "15px" }}>
+          <div className="card-header" style={{ fontWeight: "bold", color: "#005cbe" }}>
+            Activities
           </div>
           <div className="card-body">
-          <h5 className="card-title" style={{fontWeight:"bold"}}>{packages.PackageActivites} {packages.PackageActivites > 1 ? " Activities" : " Activity"}</h5>
+            <h5 className="card-title" style={{ fontWeight: "bold" }}>{packages.PackageActivites} {packages.PackageActivites > 1 ? " Activities" : " Activity"}</h5>
             <p className="card-text">{packoverview[0]['activities']}</p>
           </div>
         </div>
 
-        <div className="card" style={{marginBottom:"15px"}}>
-          <div className="card-header" style={{fontWeight:"bold",color:"#005cbe"}}>
-          Meals
+        <div className="card" style={{ marginBottom: "15px" }}>
+          <div className="card-header" style={{ fontWeight: "bold", color: "#005cbe" }}>
+            Meals
           </div>
           <div className="card-body">
-          <h5 className="card-title" style={{fontWeight:"bold"}}>{packages.PackageMeals ? "Free" : "Paid"}</h5>
+            <h5 className="card-title" style={{ fontWeight: "bold" }}>{packages.PackageMeals ? "Free" : "Paid"}</h5>
             <p className="card-text">{packoverview[0]['meals']}</p>
           </div>
         </div>
 
-        <div className="card" style={{marginBottom:"15px"}}>
-          <div className="card-header" style={{fontWeight:"bold",color:"#005cbe"}}>
-          Transfers
+        <div className="card" style={{ marginBottom: "15px" }}>
+          <div className="card-header" style={{ fontWeight: "bold", color: "#005cbe" }}>
+            Transfers
           </div>
           <div className="card-body">
-            <h5 className="card-title" style={{fontWeight:"bold"}}>{packages.PackageTransfers} {packages.PackageTransfers > 1 ? "Transfers" : "Transfer"}</h5>
+            <h5 className="card-title" style={{ fontWeight: "bold" }}>{packages.PackageTransfers} {packages.PackageTransfers > 1 ? "Transfers" : "Transfer"}</h5>
             <p className="card-text">{packoverview[0]['transfers']}</p>
           </div>
         </div>
 
 
 
+      </div>
+
+
+
+      <div className={`${styles2.containeritinerary}`} id="fullcontaineritinerary">
+        <div style={{ fontSize: "20px" }}>
+          {/* <div style={{fontSize:"25px",fontWeight:"bold"}}>Day</div> */}
+          {/* <span style={{display:"flex",flexDirection:"row",justifyContent:"space-around",flexFlow:"wrap"}}>
+          {
+            totaldays.map((element) => {
+              return <span className={`${styles2.eachday}`}>{element}</span>
+          })
+
+          }
+          </span> */}
+          <div className='packitem' style={{ display: "flex" }}>
+            <div style={{ marginTop: "auto", marginBottom: "auto", marginRight: "10px" }}>Day: </div>
+            <select name="room" value={day} onChange={(e) => { dayOnChange(e) }} className="form-control tm-select" id="inputRoom">
+              {totaldays.map((day) => {
+                // console.log(month+year);
+                return <option label={day} value={day} ></option>
+              })}
+            </select>
+          </div>
+
+
+        </div>
       </div>
     </div>
 

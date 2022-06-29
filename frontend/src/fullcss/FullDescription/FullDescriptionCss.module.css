@@ -39,3 +39,17 @@
     margin-bottom: 15px;
 }
 
+.overviewfullcont{
+    display: block;
+}
+
+.containeritinerary{
+    display: none;
+    margin-top: 20px;
+}
+
+.eachday{
+    background: white;
+    width: 35px;
+    text-align: center;
+}
