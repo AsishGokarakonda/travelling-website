@@ -57,7 +57,7 @@ const AllPackages = (props) => {
       })
         .catch(function (error) {
           console.log(error)
-          props.promptAlert(error.response.data.message, "danger")
+          props.promptAlert(error.response['data'], "danger")
         });
     },
     [props]
@@ -99,7 +99,7 @@ const AllPackages = (props) => {
     // })
     //   .catch(function (error) {
     //     console.log(error)
-    //     props.promptAlert(error.response.data.message, "danger")
+    //     props.promptAlert(error.response['data'], "danger")
     //   });
   }
 
@@ -121,7 +121,7 @@ const AllPackages = (props) => {
     })
       .catch(function (error) {
         console.log(error)
-        props.promptAlert(error.response.data.message, "danger")
+        props.promptAlert(error.response['data'], "danger")
       });
   }
 
@@ -143,7 +143,7 @@ const AllPackages = (props) => {
     })
       .catch(function (error) {
         console.log(error)
-        props.promptAlert(error.response.data.message, "danger")
+        props.promptAlert(error.response['data'], "danger")
       });
   }
 
@@ -168,7 +168,7 @@ const AllPackages = (props) => {
     })
       .catch(function (error) {
         console.log(error)
-        props.promptAlert(error.response.data.message, "danger")
+        props.promptAlert(error.response['data'], "danger")
       });
   }
 
@@ -198,7 +198,7 @@ const AllPackages = (props) => {
   //   })
   //     .catch(function (error) {
   //       console.log(error)
-  //       props.promptAlert(error.response.data.message, "danger")
+  //       props.promptAlert(error.response['data'], "danger")
   //     });
 
   // }
@@ -230,7 +230,7 @@ const AllPackages = (props) => {
     })
       .catch(function (error) {
         console.log(error)
-        props.promptAlert(error.response.data.message, "danger")
+        props.promptAlert(error.response['data'], "danger")
       });
 
   }
@@ -250,7 +250,7 @@ const AllPackages = (props) => {
   //   })
   //     .catch(function (error) {
   //       console.log(error)
-  //       props.promptAlert(error.response.data.message, "danger")
+  //       props.promptAlert(error.response['data'], "danger")
   //     });
   // },[nights,packages,travel,props]
   // )

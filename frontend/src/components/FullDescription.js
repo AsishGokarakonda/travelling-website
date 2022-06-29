@@ -7,6 +7,7 @@ import { FaHotel, FaPlaneDeparture, FaPlaneArrival } from 'react-icons/fa'
 import { FaCameraRetro } from 'react-icons/fa'
 import { AiFillCar } from 'react-icons/ai'
 import { IoFastFoodSharp } from 'react-icons/io5'
+import {BiHotel} from 'react-icons/bi'
 
 
 const FullDescription = (props) => {
@@ -18,6 +19,7 @@ const FullDescription = (props) => {
   const [datestr, setDatestr] = useState("")
   const [totaldays, setTotaldays] = useState([])
   const [day, setDay] = useState(1)
+  const [eachdaypack, setEachdaypack] = useState({ "daynumber": 1, "fulldescription": "", "accommodation": "", "meals": "", "imagefilename": "" })
   const params = useParams();
   const id = params.id;
   const fetchaproduct = useCallback(
@@ -33,12 +35,22 @@ const FullDescription = (props) => {
       })
         .catch(function (error) {
           console.log(error)
-          props.promptAlert(error.response.data.message, "danger")
+          props.promptAlert(error.response['data'], "danger")
         });
     },
     [props, id]
   )
   useEffect(() => {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        let nav = document.querySelector(".tm-top-bar")
+        nav.classList.add("active")
+      } else {
+        let nav = document.querySelector(".tm-top-bar")
+        // nav.removeClass("active")
+        nav.classList.remove("active")
+      }
+    })
     fetchaproduct()
 
   }, [fetchaproduct])
@@ -54,7 +66,7 @@ const FullDescription = (props) => {
   //   })
   //     .catch(function (error) {
   //       console.log(error)
-  //       props.promptAlert(error.response.data.message, "danger")
+  //       props.promptAlert(error.response['data'], "danger")
   //     });
 
   //     Axios.get(`http://localhost:5000/api/packinfo/getpackoverview/${id}`, {
@@ -67,10 +79,10 @@ const FullDescription = (props) => {
   //     })
   //       .catch(function (error) {
   //         console.log(error)
-  //         props.promptAlert(error.response.data.message, "danger")
+  //         props.promptAlert(error.response['data'], "danger")
   //       });
   // })
-  console.log(packages);
+  // console.log(packages);
 
   const handleOnClick = (e) => {
     //get id of the clicked div
@@ -127,7 +139,7 @@ const FullDescription = (props) => {
       })
         .catch(function (error) {
           console.log(error)
-          props.promptAlert(error.response.data.message, "danger")
+          props.promptAlert(error.response['data'], "danger")
         });
     },
     [props, id]
@@ -135,8 +147,22 @@ const FullDescription = (props) => {
 
   useEffect(() => {
     getpackoverview()
-  }, [getpackoverview])
-  console.log(packoverview[0]);
+    Axios.get(`http://localhost:5000/api/packinfo/geteachdaypack/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'day': 1
+      }
+    }).then(function (response) {
+      setEachdaypack(response.data)
+      console.log(response.data);
+    })
+      .catch(function (error) {
+        console.log(error.response['data'])
+        props.promptAlert(error.response['data'], "danger")
+      });
+  }, [getpackoverview, props, id])
+  // console.log(packoverview[0]);
 
   useEffect(() => {
     var date = new Date(packages.PackageEndDate)
@@ -162,6 +188,20 @@ const FullDescription = (props) => {
 
   const dayOnChange = (e) => {
     setDay(e.target.value)
+    Axios.get(`http://localhost:5000/api/packinfo/geteachdaypack/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'day': e.target.value
+      }
+    }).then(function (response) {
+      setEachdaypack(response.data)
+      console.log(response.data);
+    })
+      .catch(function (error) {
+        console.log(error)
+        props.promptAlert(error.response['data'], "danger")
+      });
   }
   return (
     <div className='container' style={{ marginTop: "150px" }}>
@@ -349,16 +389,7 @@ const FullDescription = (props) => {
 
       <div className={`${styles2.containeritinerary}`} id="fullcontaineritinerary">
         <div style={{ fontSize: "20px" }}>
-          {/* <div style={{fontSize:"25px",fontWeight:"bold"}}>Day</div> */}
-          {/* <span style={{display:"flex",flexDirection:"row",justifyContent:"space-around",flexFlow:"wrap"}}>
-          {
-            totaldays.map((element) => {
-              return <span className={`${styles2.eachday}`}>{element}</span>
-          })
-
-          }
-          </span> */}
-          <div className='packitem' style={{ display: "flex" }}>
+          <div className='packitem' style={{ display: "flex", marginLeft: "auto", marginRight: "auto", marginBottom: "20px" }}>
             <div style={{ marginTop: "auto", marginBottom: "auto", marginRight: "10px" }}>Day: </div>
             <select name="room" value={day} onChange={(e) => { dayOnChange(e) }} className="form-control tm-select" id="inputRoom">
               {totaldays.map((day) => {
@@ -366,6 +397,50 @@ const FullDescription = (props) => {
                 return <option label={day} value={day} ></option>
               })}
             </select>
+          </div>
+
+
+          <div>
+            <img src={process.env.PUBLIC_URL + `/img/${eachdaypack.imagefilename}`} alt={process.env.PUBLIC_URL + '/img/noImage.jpeg'} style={styles.eachimage} />
+            <div className="card" style={{ marginBottom: "15px",marginLeft:"auto",marginRight:"auto",marginTop:"20px" }}>
+              <div className="card-header" style={{ fontWeight: "bold", color: "#005cbe",textAlign:"center" }}>
+                Day Number {eachdaypack.daynumber}
+              </div>
+            </div>
+
+
+            <div className="card" style={{ marginBottom: "15px",marginLeft:"auto",marginRight:"auto",marginTop:"10px" }}>
+              <div className="card-header" style={{ fontWeight: "bold", color: "#005cbe",display:"flex",alignItems:"center" }}>
+                Accommodation &nbsp;
+                <BiHotel height={20} width={24}/>
+              </div>
+              <div className="card-body">
+                <p className="card-text">{eachdaypack.accommodation}</p>
+              </div>
+            </div>
+
+
+            <div className="card" style={{ marginBottom: "15px",marginLeft:"auto",marginRight:"auto",marginTop:"10px" }}>
+              <div className="card-header" style={{ fontWeight: "bold", color: "#005cbe",display:"flex",alignItems:"center" }}>
+                Meals &nbsp;
+                <IoFastFoodSharp height={20} width={24}/>
+              </div>
+              <div className="card-body">
+                <p className="card-text">{eachdaypack.meals}</p>
+              </div>
+            </div>
+
+
+
+            <div className="card" style={{ marginBottom: "15px",marginLeft:"auto",marginRight:"auto",marginTop:"10px" }}>
+              <div className="card-header" style={{ fontWeight: "bold", color: "#005cbe",display:"flex",alignItems:"center" }}>
+                Details
+              </div>
+              <div className="card-body">
+                <p className="card-text">{eachdaypack.fulldescription}</p>
+              </div>
+            </div>
+
           </div>
 
 
@@ -402,6 +477,14 @@ const styles = {
     width: "100px",
     margin: "auto",
     marginTop: " 25px"
+  },
+  eachimage: {
+    display: "block",
+    marginLeft: "auto",
+    width: "80%",
+    marginRight: "auto",
+    height: "400px",
+    objectFit: "cover"
   }
 
 

@@ -31,7 +31,7 @@ const SmallCard = (props) => {
 
                     </div>
                 </div>
-                <Link to="/" class="btn btn-primary details">More Details</Link>
+                <Link to={`/viewdetails/${props.packagedetails._id}`} class="btn btn-primary details">More Details</Link>
             </div>
         </div>
 
