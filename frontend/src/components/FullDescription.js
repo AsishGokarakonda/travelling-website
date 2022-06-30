@@ -3,12 +3,12 @@ import { useParams } from 'react-router-dom';
 import Axios from 'axios'
 import styles2 from '../fullcss/FullDescription/FullDescriptionCss.module.css'
 // import { MdOutlineFlight } from 'react-icons/md'
-import { FaHotel, FaPlaneDeparture, FaPlaneArrival } from 'react-icons/fa'
+import { FaHotel, FaPlaneDeparture, FaPlaneArrival,FaInfoCircle } from 'react-icons/fa'
 import { FaCameraRetro } from 'react-icons/fa'
 import { AiFillCar } from 'react-icons/ai'
 import { IoFastFoodSharp } from 'react-icons/io5'
 import {BiHotel} from 'react-icons/bi'
-
+import { Link } from 'react-router-dom';
 
 const FullDescription = (props) => {
   const [packages, setPackages] = useState({
@@ -145,8 +145,8 @@ const FullDescription = (props) => {
     [props, id]
   )
 
-  useEffect(() => {
-    getpackoverview()
+
+  const geteachpack = useCallback( () =>{
     Axios.get(`http://localhost:5000/api/packinfo/geteachdaypack/${id}`, {
       headers: {
         'Content-Type': 'application/json',
@@ -161,7 +161,13 @@ const FullDescription = (props) => {
         console.log(error.response['data'])
         props.promptAlert(error.response['data'], "danger")
       });
-  }, [getpackoverview, props, id])
+  },[props,id]
+  )
+
+  useEffect(() => {
+    getpackoverview()
+    geteachpack()
+  }, [getpackoverview,geteachpack, props, id])
   // console.log(packoverview[0]);
 
   useEffect(() => {
@@ -401,7 +407,7 @@ const FullDescription = (props) => {
 
 
           <div>
-            <img src={process.env.PUBLIC_URL + `/img/${eachdaypack.imagefilename}`} alt={process.env.PUBLIC_URL + '/img/noImage.jpeg'} style={styles.eachimage} />
+            <img src={process.env.PUBLIC_URL + `/img/${eachdaypack.imagefilename}`} alt="pic not available" style={styles.eachimage} />
             <div className="card" style={{ marginBottom: "15px",marginLeft:"auto",marginRight:"auto",marginTop:"20px" }}>
               <div className="card-header" style={{ fontWeight: "bold", color: "#005cbe",textAlign:"center" }}>
                 Day Number {eachdaypack.daynumber}
@@ -423,7 +429,7 @@ const FullDescription = (props) => {
             <div className="card" style={{ marginBottom: "15px",marginLeft:"auto",marginRight:"auto",marginTop:"10px" }}>
               <div className="card-header" style={{ fontWeight: "bold", color: "#005cbe",display:"flex",alignItems:"center" }}>
                 Meals &nbsp;
-                <IoFastFoodSharp height={20} width={24}/>
+                <IoFastFoodSharp size={15} width={24}/>
               </div>
               <div className="card-body">
                 <p className="card-text">{eachdaypack.meals}</p>
@@ -434,7 +440,8 @@ const FullDescription = (props) => {
 
             <div className="card" style={{ marginBottom: "15px",marginLeft:"auto",marginRight:"auto",marginTop:"10px" }}>
               <div className="card-header" style={{ fontWeight: "bold", color: "#005cbe",display:"flex",alignItems:"center" }}>
-                Details
+                Details &nbsp;
+                <FaInfoCircle size={15}/>
               </div>
               <div className="card-body">
                 <p className="card-text">{eachdaypack.fulldescription}</p>
@@ -446,6 +453,12 @@ const FullDescription = (props) => {
 
         </div>
       </div>
+
+      <button className="btn btn-primary" style={{cursor:"pointer", borderRadius:"6px",display:"block",marginRight:"auto",marginLeft:"auto",marginBottom:"20px"}}>
+        <Link style={{color:"white"}} to={`/booknow/${id}`}>
+        Book Now
+        </Link>
+      </button>
     </div>
 
 

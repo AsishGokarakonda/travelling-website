@@ -41,7 +41,7 @@ const PackageItem = (props) => {
     // }
     return (
         <div className="tm-recommended-place">
-            <img src={srcimage} alt={process.env.PUBLIC_URL + '/img/noImage.jpeg'} className="img-fluid tm-recommended-img" />
+            <img src={srcimage} alt="pic not availabe" className="img-fluid tm-recommended-img" />
             <div className="tm-recommended-description-box">
                 <h3 className="tm-recommended-title">{packagedetails.PackageName}</h3>
                 <p className="tm-text-highlight">{packagedetails.PackageRoute}</p>

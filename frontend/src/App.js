@@ -13,6 +13,7 @@ import Alert from './components/Alert';
 import { useState } from 'react';
 import AllTypes from './components/AllTypes';
 import FullDescription from './components/FullDescription';
+import BookingPage from './components/BookingPage';
 
 function App() {
   const [alert, setAlert] = useState(null)
@@ -36,6 +37,7 @@ function App() {
           <Route path="/alltypes" element={<AllTypes promptAlert={promptAlert}/>} />
           <Route path="/allpackages" element={<AllPackages promptAlert={promptAlert}/>} />
           <Route path='/viewdetails/:id' element={<FullDescription promptAlert={promptAlert}/>}/>
+          <Route path='/booknow/:id' element={<BookingPage promptAlert={promptAlert}/>}/>
           <Route path="/signup" element={<Signup  promptAlert={promptAlert} />} />
         </Routes>
       </BrowserRouter>

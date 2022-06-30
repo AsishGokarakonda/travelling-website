@@ -9,7 +9,7 @@ const SmallCard = (props) => {
             {/* <div style={{display: 'flex',justifyContent: 'flex-end',position:'absolute',right: '0'}}> 
                         <span className="badge rounded-pill bg-info">featured</span>
                 </div> */}
-            <img src={imgsrc} style={{ height: "170px" }} class="card-img-top " alt="..." />
+            <img src={imgsrc} style={{ height: "170px" }} class="card-img-top " alt="pic not available" />
             <div class="card-body" style={{ paddingTop: "16px" }}>
                 <h5 class="card-title" style={{ textAlign: "center", marginBottom: "4px" }}>{props.packagedetails.PackageName}</h5>
                 <div class="d-flex justify-content-between">
