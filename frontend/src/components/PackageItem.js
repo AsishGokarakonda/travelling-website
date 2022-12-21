@@ -58,21 +58,21 @@ const PackageItem = (props) => {
                         <div style={{ textAlign: "center" }}>
                             <FaHotel size={"19"} />
                         </div>
-                        <p style={{ textAlign: "center" }}>{packagedetails.PackageHotels} <span className="widthChangeRemove">{packagedetails.PackageHotels > 1 ? " Hotels" : " Hotel"}</span> </p>
+                        <p style={{ textAlign: "center" }}>{packagedetails.PackageHotels} <span className="widthChangeRemove" style={{fontSize:"13px",fontWeight:"normal"}}>{packagedetails.PackageHotels > 1 ? " Hotels" : " Hotel"}</span> </p>
                     </div>
 
                     <div>
                         <div style={{ textAlign: "center" }}>
                             <FaCameraRetro size={"19"} />
                         </div>
-                        <p style={{ textAlign: "center" }}>{packagedetails.PackageActivites} <span className="widthChangeRemove">{packagedetails.PackageActivites > 1 ? " Activities" : " Activity"}</span>  </p>
+                        <p style={{ textAlign: "center" }}>{packagedetails.PackageActivites} <span className="widthChangeRemove" style={{fontSize:"13px",fontWeight:"normal"}}>{packagedetails.PackageActivites > 1 ? " Activities" : " Activity"}</span>  </p>
                     </div>
 
                     <div>
                         <div style={{ textAlign: "center" }}>
                             <IoFastFoodSharp size={"19"} />
                         </div>
-                        <p style={{ textAlign: "center" }}> <span>{packagedetails.PackageMeals ? "Free" : "Paid"}</span> </p>
+                        <p style={{ textAlign: "center" }}> <span style={{fontSize:"13px",fontWeight:"normal"}}>{packagedetails.PackageMeals ? "Free" : "Paid"}</span> </p>
                     </div>
 
 
@@ -80,7 +80,7 @@ const PackageItem = (props) => {
                         <div style={{ textAlign: "center" }}>
                             <AiFillCar size={"19"} />
                         </div>
-                        <p style={{ textAlign: "center" }}>{packagedetails.PackageTransfers} <span className="widthChangeRemove">{packagedetails.PackageTransfers > 1 ? "Transfers" : "Transfer"}</span> </p>
+                        <p style={{ textAlign: "center" }}>{packagedetails.PackageTransfers} <span className="widthChangeRemove" style={{fontSize:"13px",fontWeight:"normal"}}>{packagedetails.PackageTransfers > 1 ? "Transfers" : "Transfer"}</span> </p>
                     </div>
                 </div>
 

@@ -64,7 +64,11 @@ const BookingPage = () => {
 
     return (
         <div style={{ marginTop: "150px" }}>
-            <div className="container" style={{ border: "2px solid red" }}>
+            <div className="container">
+                <div style={{textAlign:"center",fontSize:"40px"}}>
+                    Bookings Page
+                </div>
+                <hr style={{marginTop:"0px"}} />
                 <div style={{ marginBottom: "20px" }}>
                     <h3 style={{ textAlign: "center", fontSize: "20px" }}>Rooms</h3>
                     <div className={styles3.wrapper} style={{ margin: "auto auto" }}>
